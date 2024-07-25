@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rotate-x-180 {
+    transform: rotateX(180deg);
+}
+.enlarged-image {
+    transform: scale(2); 
+    margin-right: 20px;
+}
