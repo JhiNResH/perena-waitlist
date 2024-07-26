@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'brand-cream': 'var(--brand-cream)',
+        'brand-purple': 'var(--brand-purple)'
+      }
+    },
   },
   plugins: [import('tailwindcss-animate')],
 }

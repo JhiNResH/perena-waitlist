@@ -10,7 +10,7 @@ const App = () => {
             </div>
                 <FlipCircle />
             <h1 className="text-2xl font-bold text-center text-indigo-900 leading-tight">
-                Infrastructure <br />for Money
+                Infrastructure <br />For Money
             </h1>
         </main>
     )
