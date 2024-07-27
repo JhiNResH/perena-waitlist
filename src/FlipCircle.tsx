@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './global.css'; 
+import ConnectWallet from './ConnectWallet';
 
 const FlippableCircle: React.FC = () => {
     const [isFlipped, setIsFlipped] = useState(false);
@@ -31,9 +32,7 @@ const FlippableCircle: React.FC = () => {
                     <img src="/planet-before-hover.png" alt="planet" />
                 </div>
                 <div className="absolute w-full h-full flex items-center justify-center text-white text-xl rounded-full" style={{ backfaceVisibility: 'hidden', transform: 'rotateX(180deg)' }}>
-                    <button className="px-4 py-2 bg-indigo-900 hover:bg-blue-800 text-white font-bold rounded">
-                        Connect Wallet
-                    </button>
+                <ConnectWallet/>
                 </div>
             </div>
             <div className="absolute w-2 h-2 bg-indigo-900 rounded-full" style={{ top: '50%', left: '-40px', transform: 'translateY(-50%)' }}></div>
