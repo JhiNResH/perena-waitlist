@@ -1557,4 +1557,17 @@
     font-style: normal;
     font-display: swap;
   }
+  .button-waitlist {
+    background-color: indigo-900;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    
+  }
+  .button-waitlist:hover {
+    background-color: #0056b3;
+  }
   
