@@ -25,7 +25,7 @@ const App = () => {
                     FOR MONEY
                 </h2>
             </div>
-            <footer className="w-full py-4 mt-8">
+            <footer className="w-full py-4">
               <div className="flex justify-center">
                 <a 
                   href="https://x.com/Perena__" 
