@@ -67,7 +67,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
           }),
         });
         
-        alert("LFG! you just joined Perena!");
+        alert("LFG! You just joined Perena!");
       } catch (error) {
         console.error('Error:', error);
         alert("There was an error submitting your request. Please try again.");
