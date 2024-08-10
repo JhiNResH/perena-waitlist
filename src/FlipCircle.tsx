@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import './global.css'; 
 import ConnectWallet from './ConnectWallet';
 
-const FlippableCircle: React.FC = () => {
+interface FlipCircleProps {
+    className?: string;
+    openModal: () => void;
+}
+
+const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleMouseEnter = () => {
@@ -18,7 +23,7 @@ const FlippableCircle: React.FC = () => {
     };
 
     return (
-        <div className="relative w-64 h-64 mb-8" style={{ perspective: '1000px' }}>
+        <div className={`relative w-64 h-64 mb-8 ${className}`} style={{ perspective: '1000px' }}>
             <div
                 className={`absolute w-full h-full transform ${isFlipped ? 'rotate-x-180' : ''}`}
                 style={{
@@ -32,11 +37,11 @@ const FlippableCircle: React.FC = () => {
                     <img src="/planet-before-hover.png" alt="planet" />
                 </div>
                 <div className="absolute w-full h-full flex items-center justify-center text-white text-xl rounded-full" style={{ backfaceVisibility: 'hidden', transform: 'rotateX(180deg)' }}>
-                <ConnectWallet/>
+                    <ConnectWallet openModal={openModal}/>
                 </div>
             </div>
-            <div className="absolute w-2 h-2 bg-indigo-900 rounded-full" style={{ top: '50%', left: '-40px', transform: 'translateY(-50%)' }}></div>
-            <div className="absolute w-2 h-2 bg-indigo-900 rounded-full" style={{ top: '50%', right: '-40px', transform: 'translateY(-50%)' }}></div>
+            <div className="absolute w-3 h-3 bg-indigo-900 rounded-full" style={{ top: '50%', left: '-48px', transform: 'translateY(-50%)' }}></div>
+            <div className="absolute w-3 h-3 bg-indigo-900 rounded-full" style={{ top: '50%', right: '-48px', transform: 'translateY(-50%)' }}></div>
         </div>
     );
 };

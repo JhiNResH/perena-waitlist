@@ -11,7 +11,11 @@ import { clusterApiUrl } from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 import ConnectButton from './CustomizedWallet';
 
-export const Wallet: FC = () => {
+interface WalletProps {
+    openModal: () => void;
+}
+
+export const Wallet: FC<WalletProps> = ({ openModal }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
     const network = WalletAdapterNetwork.Devnet;
 
@@ -30,11 +34,19 @@ export const Wallet: FC = () => {
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <ConnectButton/>
-                    { /* Your app's components go here, nested within the context providers. */ }
+                    <WalletContent openModal={openModal} />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
+    );
+};
+
+const WalletContent: FC<WalletProps> = ({ openModal }) => {
+    return (
+        <>
+            <ConnectButton openModal={openModal}/>
+            { /* Your app's components go here, nested within the context providers. */ }
+        </>
     );
 };
 

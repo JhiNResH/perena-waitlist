@@ -1,12 +1,17 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
+import bs58 from "bs58";
+
+
 
 //copy WalletMultiButton, only modify ui, used for connect wallet
-type ConnectButtonProps = {
+interface ConnectButtonProps {
   className?: string;
   style?: React.CSSProperties;
-};
+  openModal: () => void;  // 新增的 prop
+}
 
 const ConnectButton = (props: ConnectButtonProps) => {
   const { setVisible: setModalVisible } = useWalletModal();
@@ -16,6 +21,8 @@ const ConnectButton = (props: ConnectButtonProps) => {
         setModalVisible(true);
       },
     });
+  const { signMessage } = useWallet();
+  
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const ref = useRef<HTMLUListElement>(null);
@@ -37,19 +44,56 @@ const ConnectButton = (props: ConnectButtonProps) => {
       document.removeEventListener("touchstart", listener);
     };
   }, []);
-  const content = useMemo(() => {
+
+  const handleJoinWaitlist = useCallback(async () => {
+    if (publicKey && signMessage) {
+      try {
+
+        const message = new TextEncoder().encode(`Join waitlist for ${publicKey.toBase58()}`);
+        const signature = await signMessage(message);
+        const signatureBase58 = bs58.encode(signature);
+
+        await fetch(
+          'https://script.google.com/macros/s/AKfycbzuNNizoAFYvG0q2kitX8ryaZt2qpmXpP9RGbv2Tar57mm7UOku-jis5mSXlO6xxQzH/exec',
+          {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            publicKey: publicKey.toBase58(),
+            signature: signatureBase58,
+          }),
+        });
+        
+        alert("LFG! you just joined Perena!");
+      } catch (error) {
+        console.error('Error:', error);
+        alert("There was an error submitting your request. Please try again.");
+      }
+    }
+  }, [publicKey, signMessage]);
+
+  useEffect(() => {
+    if (publicKey) {
+      handleJoinWaitlist();
+    }
+  }, [publicKey, handleJoinWaitlist]);
+  
+    const content = useMemo(() => {
     if (publicKey) {
       const base58 = publicKey.toBase58();
       return base58.slice(0, 4) + ".." + base58.slice(-4);
     } else {
       return (
-        <button className="button-waitlist">
+        <button className="button-waitlist" onClick={handleJoinWaitlist}>
           Join the Waitlist
         </button>
       );
     }
-  }, [publicKey]);
-
+  }, [publicKey, handleJoinWaitlist]);
+  
   return (
     <div className="wallet-adapter-dropdown">
       <div
@@ -77,7 +121,11 @@ const ConnectButton = (props: ConnectButtonProps) => {
           }
         }}
       >
-        {content}
+         {typeof content === 'string' ? (
+          <button className="button-waitlist">{content}</button>
+        ) : (
+          content
+        )}
       </div>
       <ul
         aria-label="dropdown-list"
