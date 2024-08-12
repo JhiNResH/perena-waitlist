@@ -86,20 +86,16 @@ const ConnectButton = (props: ConnectButtonProps) => {
       const base58 = publicKey.toBase58();
       return base58.slice(0, 4) + ".." + base58.slice(-4);
     } else {
-      return (
-        <button className="button-waitlist" onClick={handleJoinWaitlist}>
-          Join the Waitlist
-        </button>
-      );
+      return "Join the Waitlist";
     }
-  }, [publicKey, handleJoinWaitlist]);
+  }, [publicKey]);
   
   return (
     <div className="wallet-adapter-dropdown">
       <div
         {...props}
         aria-expanded={menuOpen}
-        className={`wallet-adapter-button-trigger
+        className={`button-waitlist
                     ${props.className ? props.className : ""}`}
         style={{
           pointerEvents: menuOpen ? "none" : "auto",
@@ -120,12 +116,10 @@ const ConnectButton = (props: ConnectButtonProps) => {
               break;
           }
         }}
+        role="button"
+        tabIndex={0}
       >
-         {typeof content === 'string' ? (
-          <button className="button-waitlist">{content}</button>
-        ) : (
-          content
-        )}
+        {content}
       </div>
       <ul
         aria-label="dropdown-list"
