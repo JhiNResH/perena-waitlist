@@ -1,19 +1,19 @@
-import React, { useState} from 'react';
+import React, { useState, } from 'react';
 import './global.css'; 
 import ConnectWallet from './ConnectWallet';
 
 interface FlipCircleProps {
     className?: string;
     openModal: () => void;
-    // duration?: number;
+    duration?: number;
 }
 
-const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal }) => {
-    // const FlippableCircle: React.FC<FlipCircleProps> = ({
-    //     className = '',
-    //     openModal,
-    //     // duration = 5000 // animation duration 5s
-    // }) => {
+// const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal }) => {
+    const FlippableCircle: React.FC<FlipCircleProps> = ({
+        className = '',
+        openModal,
+        // duration = 5000 // animation duration 5s
+    }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleMouseEnter = () => {
