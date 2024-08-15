@@ -1562,7 +1562,7 @@
     height: 200px;
     border-radius: 50%;
     background-color: #fffef7; /* 主要背景色 */
-    color: #3c348f;
+    color: #2a136a;
     font-size: 24px;
     border: none;
     outline: none;
@@ -1570,12 +1570,14 @@
     margin: 0;
     cursor: pointer;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
     position: relative;
-    font-family: 'Supra Extended Medium';
-  }
+    font-family: 'Plusjakartasans', sans-serif;
+    font-weight: 700;
+    }
   .button-waitlist::before,
   .button-waitlist::after {
     content: '';
@@ -1584,23 +1586,25 @@
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 2px solid #3c348f;
+    border: 2px solid #2a136a;
     transition: all 0.3s ease;
   }
   
   .button-waitlist::before {
     width: calc(100% + 20px);
     height: calc(100% + 20px);
-    border: 1px solid #3c348f; /* 外圈顏色 */
+    border: 1px solid #2a136a; /* 外圈顏色 */
   }
   
   .button-waitlist::after {
     width: calc(100% + 40px);
     height: calc(100% + 40px);
-    border: 1px solid #3c348f; /* 外圈顏色 */
+    border: 1px solid #2a136a; /* 外圈顏色 */
   }
   
-
+  .button-waitlist:hover {
+    background-color: #fffef7; /* hover時的背景色 */
+  }
   
   .button-waitlist:hover::before,
   .button-waitlist:hover::after {
