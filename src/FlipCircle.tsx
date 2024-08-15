@@ -55,15 +55,15 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal 
                 // className={`absolute w-full h-full ${isFlipped ? 'animate-slow-spin' : 'flipped'}`}
                 style={{
                     transformStyle: 'preserve-3d',
-                    transition: 'transform 0.5s'
+                    transition: 'transform 0.3s ease-in-out'
                  }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >
                 <div className="absolute w-full h-full flex items-center justify-center text-white text-xl rounded-full" style={{ backfaceVisibility: 'hidden' }}>
-                    <img src="/planet-before-hover.png" alt="planet" />
+                    <img src="/planet-before-hover.png" alt="planet" className="w-full h-full object-cover" />
                 </div>
-                <div className="absolute w-full h-full flex items-center justify-center text-white text-xl rounded-full" style={{ backfaceVisibility: 'hidden', transform: 'rotateX(180deg)' }}>
+                <div className="absolute w-full h-full flex items-center justify-center text-white text-xl rounded-full " style={{ backfaceVisibility: 'hidden', transform: 'rotateX(180deg)' }}>
                     <ConnectWallet openModal={openModal}/>
                 </div>
             </div>
