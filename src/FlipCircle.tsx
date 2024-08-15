@@ -5,9 +5,12 @@ import ConnectWallet from './ConnectWallet';
 interface FlipCircleProps {
     className?: string;
     openModal: () => void;
+    flipInterval?: number;
 }
 
 const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal }) => {
+// const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal, flipInterval = 750 }) => {
+
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleMouseEnter = () => {
@@ -21,6 +24,15 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal 
             setIsFlipped(false);
         }
     };
+    // useEffect(() => {
+    //     // auto flip
+    //     const timer = setInterval(() => {
+    //         setIsFlipped(prev => !prev);
+    //     }, flipInterval);
+
+    //     // Clear timer
+    //     return () => clearInterval(timer);
+    // }, [flipInterval]);
 
     return (
         <div className={`relative w-64 h-64 mb-8 ${className}`} style={{ perspective: '1000px' }}>
