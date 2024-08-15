@@ -10,7 +10,7 @@ import bs58 from "bs58";
 interface ConnectButtonProps {
   className?: string;
   style?: React.CSSProperties;
-  openModal: () => void;  // 新增的 prop
+  openModal: () => void;  
 }
 
 const ConnectButton = (props: ConnectButtonProps) => {
@@ -86,7 +86,12 @@ const ConnectButton = (props: ConnectButtonProps) => {
       const base58 = publicKey.toBase58();
       return base58.slice(0, 4) + ".." + base58.slice(-4);
     } else {
-      return "Join the Waitlist";
+      return (
+        <div className="flex flex-col items-center">
+          <span className="text-lg font-plusjakartasans font-light">Join the</span>
+          <span className="text-4xl font-bold mt-1">Waitlist</span>
+        </div>
+      );
     }
   }, [publicKey]);
   

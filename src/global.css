@@ -1575,7 +1575,7 @@
     justify-content: center;
     transition: all 0.3s ease;
     position: relative;
-    font-family: 'Plusjakartasans', sans-serif;
+    font-family: 'Sebastien Slab Round', sans-serif;
     font-weight: 700;
     }
   .button-waitlist::before,
@@ -1609,4 +1609,21 @@
   .button-waitlist:hover::before,
   .button-waitlist:hover::after {
     opacity: 1;
-  }  
+  }
+
+  @keyframes slowSpin {
+    0% {
+      transform: rotateX(0deg);
+    }
+    100% {
+      transform: rotateX(3780deg); /* 3 full rotations */
+    }
+  }
+  
+  .animate-slow-spin {
+    animation: slowSpin 5s cubic-bezier(0.25, 0.05, 0.55, 0.95) forwards;
+  }
+  .flipped {
+    transform: rotateX(180deg);
+  }
+  

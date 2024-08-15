@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import './global.css'; 
 import ConnectWallet from './ConnectWallet';
 
 interface FlipCircleProps {
     className?: string;
     openModal: () => void;
-    flipInterval?: number;
+    // duration?: number;
 }
 
 const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal }) => {
-// const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal, flipInterval = 750 }) => {
-
+    // const FlippableCircle: React.FC<FlipCircleProps> = ({
+    //     className = '',
+    //     openModal,
+    //     // duration = 5000 // animation duration 5s
+    // }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleMouseEnter = () => {
@@ -23,7 +26,18 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal 
         if (isFlipped) {
             setIsFlipped(false);
         }
-    };
+        };
+        
+    // const [isAnimating, setIsAnimating] = useState(true);
+
+    // useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //         setIsAnimating(false);
+    //     }, duration);
+
+    //     return () => clearTimeout(timer);
+    // }, [duration]);
+        
     // useEffect(() => {
     //     // auto flip
     //     const timer = setInterval(() => {
@@ -38,6 +52,7 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal 
         <div className={`relative w-64 h-64 mb-8 ${className}`} style={{ perspective: '1000px' }}>
             <div
                 className={`absolute w-full h-full transform ${isFlipped ? 'rotate-x-180' : ''}`}
+                // className={`absolute w-full h-full ${isFlipped ? 'animate-slow-spin' : 'flipped'}`}
                 style={{
                     transformStyle: 'preserve-3d',
                     transition: 'transform 0.5s'
@@ -52,9 +67,8 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal 
                     <ConnectWallet openModal={openModal}/>
                 </div>
             </div>
-            <div className="absolute w-3 h-3 bg-indigo-900 rounded-full" style={{ top: '50%', left: '-48px', transform: 'translateY(-50%)' }}></div>
-            <div className="absolute w-3 h-3 bg-indigo-900 rounded-full" style={{ top: '50%', right: '-48px', transform: 'translateY(-50%)' }}></div>
-        </div>
+            <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', left: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>
+            <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', right: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>        </div>
     );
 };
 
