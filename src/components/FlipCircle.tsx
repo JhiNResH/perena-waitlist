@@ -1,6 +1,6 @@
 import React, { useState, } from 'react';
-import './global.css'; 
-import ConnectWallet from './ConnectWallet';
+import '../global.css'; 
+import ConnectWallet from './Wallet/ConnectWallet';
 
 interface FlipCircleProps {
     className?: string;
@@ -68,7 +68,8 @@ interface FlipCircleProps {
                 </div>
             </div>
             <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', left: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>
-            <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', right: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>        </div>
+            <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', right: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>
+        </div>
     );
 };
 
