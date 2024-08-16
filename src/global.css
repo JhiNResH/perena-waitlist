@@ -1603,7 +1603,7 @@
   }
   
   .button-waitlist:hover {
-    background-color: #fffef7; /* hover時的背景色 */
+    color: #d2bb94; /* hover時的背景色 */
   }
   
   .button-waitlist:hover::before,
@@ -1624,6 +1624,6 @@
     animation: slowSpin 5s cubic-bezier(0.25, 0.05, 0.55, 0.95) forwards;
   }
   .flipped {
-    transform: rotateX(180deg);
-  }
+  transform: rotateX(180deg);
+}
   
