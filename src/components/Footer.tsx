@@ -5,11 +5,15 @@ const Footer: React.FC = () => {
     <footer className="w-full py-4 px-4 sm:px-6 md:px-8 mt-4 sm:mt-6 md:mt-8">
       <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center">
         <div className="text-sm text-brand-purple order-3 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:text-left">
-          <p>© 2024 Perena.org</p>
+          <p style={{ fontFamily: '"Plusjakartasans", serif' }}>© 2024 Perena.org</p>
         </div>
         <div className="flex space-x-4 text-sm text-brand-purple order-2 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:justify-center">
-          <a href="/privacy-policy" className="hover:underline">Privacy Policy</a>
-          <a href="/terms-of-use" className="hover:underline">Terms of Use</a>
+          <a href="/privacy-policy" className="hover:underline"
+            style={{ fontFamily: '"Plusjakartasans", serif' }}
+          >Privacy Policy</a>
+          <a href="/terms-of-use" className="hover:underline"
+            style={{ fontFamily: '"Plusjakartasans", serif' }}
+          >Terms of Use</a>
         </div>
         <div className="flex space-x-4 order-1 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:justify-end">
           <a 
