@@ -2,7 +2,8 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-<footer className="w-full py-4 px-4 sm:px-6 md:px-8 mt-4 sm:mt-6 md:mt-8 border-t border-brand-purple">      <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center">
+    <footer className="w-full py-4 border-t border-brand-purple">
+      <div className="w-full mx-auto px-[var(--40px)] max-w-[var(--max-width)] flex flex-col lg:flex-row justify-between items-center">
         <div className="text-sm text-brand-purple order-3 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:text-left">
           <p style={{ fontFamily: '"Plusjakartasans", serif' }}>© 2024 Perena.org</p>
         </div>
