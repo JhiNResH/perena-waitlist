@@ -3,17 +3,20 @@ import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import bs58 from "bs58";
-
+import WaitlistConfirmation from "../Waitlist/WaitlistConfirmation";
 
 
 //copy WalletMultiButton, only modify ui, used for connect wallet
 interface ConnectButtonProps {
   className?: string;
   style?: React.CSSProperties;
-  openModal: () => void;  
+  onJoinWaitlist: () => void;
 }
 
 const ConnectButton = (props: ConnectButtonProps) => {
+
+  const { onJoinWaitlist } = props;
+
   const { setVisible: setModalVisible } = useWalletModal();
   const { buttonState, onConnect, onDisconnect, publicKey } =
     useWalletMultiButton({
@@ -22,6 +25,9 @@ const ConnectButton = (props: ConnectButtonProps) => {
       },
     });
   const { signMessage } = useWallet();
+
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
   
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,10 +51,10 @@ const ConnectButton = (props: ConnectButtonProps) => {
     };
   }, []);
 
-  const handleJoinWaitlist = useCallback(async () => {
-    if (publicKey && signMessage) {
-      try {
 
+  const handleJoinWaitlist = useCallback(async () => {
+    if (publicKey && signMessage&& !hasJoinedWaitlist) {
+      try {
         const message = new TextEncoder().encode(`Join waitlist for ${publicKey.toBase58()}`);
         const signature = await signMessage(message);
         const signatureBase58 = bs58.encode(signature);
@@ -67,19 +73,36 @@ const ConnectButton = (props: ConnectButtonProps) => {
           }),
         });
         
-        alert("LFG! You just joined Perena!");
+        setHasJoinedWaitlist(true);
+        onJoinWaitlist();
+        setIsConfirmationOpen(true);
+
       } catch (error) {
         console.error('Error:', error);
         alert("There was an error submitting your request. Please try again.");
       }
     }
-  }, [publicKey, signMessage]);
+  }, [publicKey, signMessage, hasJoinedWaitlist, onJoinWaitlist]);
+
+  const handleConfirmationClose = useCallback(() => {
+    setIsConfirmationOpen(false);
+  }, []);
 
   useEffect(() => {
-    if (publicKey) {
+    if (publicKey && !hasJoinedWaitlist) {
       handleJoinWaitlist();
     }
-  }, [publicKey, handleJoinWaitlist]);
+  }, [publicKey, handleJoinWaitlist, hasJoinedWaitlist]);
+
+  
+
+  useEffect(() => {
+    if (!publicKey) {
+      setTimeout(() => {
+        setHasJoinedWaitlist(false);
+      }, 0);
+    }
+  }, [publicKey]);
   
     const content = useMemo(() => {
     if (publicKey) {
@@ -96,6 +119,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
   }, [publicKey]);
   
   return (
+    <>
     <div className="wallet-adapter-dropdown">
       <div
         {...props}
@@ -170,7 +194,14 @@ const ConnectButton = (props: ConnectButtonProps) => {
           </li>
         ) : null}
       </ul>
-    </div>
+      </div>
+      {isConfirmationOpen && (
+        <WaitlistConfirmation
+          isOpen={isConfirmationOpen}
+          onClose={handleConfirmationClose}
+        />
+      )}
+    </>
   );
 };
 export default ConnectButton;

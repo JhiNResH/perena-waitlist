@@ -12,10 +12,9 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import ConnectButton from './CustomizedWallet';
 
 interface WalletProps {
-    openModal: () => void;
-}
+    onJoinWaitlist: () => void;}
 
-export const Wallet: FC<WalletProps> = ({ openModal }) => {
+export const Wallet: FC<WalletProps> = ({ onJoinWaitlist }) => {
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
     const network = WalletAdapterNetwork.Devnet;
 
@@ -34,17 +33,17 @@ export const Wallet: FC<WalletProps> = ({ openModal }) => {
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <WalletContent openModal={openModal} />
+                    <WalletContent onJoinWaitlist={onJoinWaitlist} />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
     );
 };
 
-const WalletContent: FC<WalletProps> = ({ openModal }) => {
+const WalletContent: FC<WalletProps> = ({ onJoinWaitlist }) => {
     return (
         <>
-            <ConnectButton openModal={openModal}/>
+            <ConnectButton  onJoinWaitlist={onJoinWaitlist}/>
             { /* Your app's components go here, nested within the context providers. */ }
         </>
     );

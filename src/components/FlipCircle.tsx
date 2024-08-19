@@ -4,14 +4,14 @@ import ConnectWallet from './Wallet/ConnectWallet';
 
 interface FlipCircleProps {
     className?: string;
-    openModal: () => void;
-    duration?: number;
+    onJoinWaitlist: () => void;
+    // duration?: number;
 }
 
 // const FlippableCircle: React.FC<FlipCircleProps> = ({ className = '', openModal }) => {
     const FlippableCircle: React.FC<FlipCircleProps> = ({
         className = '',
-        openModal,
+        onJoinWaitlist,
         // duration = 5000 // animation duration 5s
     }) => {
     const [isFlipped, setIsFlipped] = useState(false);
@@ -46,7 +46,8 @@ interface FlipCircleProps {
 
     //     // Clear timer
     //     return () => clearInterval(timer);
-    // }, [flipInterval]);
+        // }, [flipInterval]);
+        
 
     return (
         <div className={`relative w-64 h-64 mb-8 ${className}`} style={{ perspective: '1000px' }}>
@@ -64,7 +65,7 @@ interface FlipCircleProps {
                     <img src="/planet-before-hover.png" alt="planet" className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute w-full h-full flex items-center justify-center text-white text-xl rounded-full " style={{ backfaceVisibility: 'hidden', transform: 'rotateX(180deg)' }}>
-                    <ConnectWallet openModal={openModal}/>
+                    <ConnectWallet onJoinWaitlist={onJoinWaitlist}/>
                 </div>
             </div>
             <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', left: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>
