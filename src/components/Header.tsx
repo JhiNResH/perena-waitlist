@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header: React.FC = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-[999] flex justify-between items-center h-[var(--80px)] px-[var(--40px)] border-b border-brand-purple bg-brand-cream">
+    <header className="fixed top-0 left-0 right-0 z-[40] flex justify-between items-center h-[var(--80px)] px-[var(--40px)] border-b border-brand-purple bg-brand-cream">
       <div className="flex items-center space-x-3">
         <img src="/perenanobg.svg" alt="Perena logo" className='h-6 w-auto' />
         <img src='/logo.svg' alt='Perana text' className='h-4 w-auto' />

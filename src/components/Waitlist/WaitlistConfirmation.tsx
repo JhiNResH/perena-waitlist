@@ -9,7 +9,7 @@ const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onC
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
       <div className="relative bg-[#fffef7] rounded-lg shadow-xl overflow-hidden w-[32rem] h-[32rem]">
         <div className="absolute inset-0" style={{
           backgroundImage: `url('/pattern.png')`,
