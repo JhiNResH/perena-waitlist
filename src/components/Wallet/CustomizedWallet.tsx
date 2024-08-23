@@ -3,10 +3,7 @@ import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useWallet } from "@solana/wallet-adapter-react";
 import bs58 from "bs58";
-import WaitlistConfirmation from "../Waitlist/WaitlistConfirmation";
 
-
-//copy WalletMultiButton, only modify ui, used for connect wallet
 interface ConnectButtonProps {
   className?: string;
   style?: React.CSSProperties;
@@ -14,7 +11,6 @@ interface ConnectButtonProps {
 }
 
 const ConnectButton = (props: ConnectButtonProps) => {
-
   const { onJoinWaitlist } = props;
 
   const { setVisible: setModalVisible } = useWalletModal();
@@ -26,19 +22,15 @@ const ConnectButton = (props: ConnectButtonProps) => {
     });
   const { signMessage } = useWallet();
 
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
-  
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
   const ref = useRef<HTMLUListElement>(null);
+
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       const node = ref.current;
-
-      // Do nothing if clicking dropdown or its descendants
       if (!node || node.contains(event.target as Node)) return;
-
       setMenuOpen(false);
     };
 
@@ -51,9 +43,8 @@ const ConnectButton = (props: ConnectButtonProps) => {
     };
   }, []);
 
-
   const handleJoinWaitlist = useCallback(async () => {
-    if (publicKey && signMessage&& !hasJoinedWaitlist) {
+    if (publicKey && signMessage && !hasJoinedWaitlist) {
       try {
         const message = new TextEncoder().encode(`Join waitlist for ${publicKey.toBase58()}`);
         const signature = await signMessage(message);
@@ -75,18 +66,13 @@ const ConnectButton = (props: ConnectButtonProps) => {
         
         setHasJoinedWaitlist(true);
         onJoinWaitlist();
-        setIsConfirmationOpen(true);
 
       } catch (error) {
         console.error('Error:', error);
         alert("There was an error submitting your request. Please try again.");
       }
     }
-  }, [publicKey, signMessage, hasJoinedWaitlist, onJoinWaitlist]);
-
-  const handleConfirmationClose = useCallback(() => {
-    setIsConfirmationOpen(false);
-  }, []);
+  }, [publicKey, signMessage, onJoinWaitlist, hasJoinedWaitlist]);
 
   useEffect(() => {
     if (publicKey && !hasJoinedWaitlist) {
@@ -94,17 +80,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
     }
   }, [publicKey, handleJoinWaitlist, hasJoinedWaitlist]);
 
-  
-
-  useEffect(() => {
-    if (!publicKey) {
-      setTimeout(() => {
-        setHasJoinedWaitlist(false);
-      }, 0);
-    }
-  }, [publicKey]);
-  
-    const content = useMemo(() => {
+  const content = useMemo(() => {
     if (publicKey) {
       const base58 = publicKey.toBase58();
       return base58.slice(0, 4) + ".." + base58.slice(-4);
@@ -119,13 +95,11 @@ const ConnectButton = (props: ConnectButtonProps) => {
   }, [publicKey]);
   
   return (
-    <>
     <div className="wallet-adapter-dropdown">
       <div
         {...props}
         aria-expanded={menuOpen}
-        className={`button-waitlist
-                    ${props.className ? props.className : ""}`}
+        className={`button-waitlist ${props.className || ""}`}
         style={{
           pointerEvents: menuOpen ? "none" : "auto",
           ...props.style,
@@ -194,14 +168,8 @@ const ConnectButton = (props: ConnectButtonProps) => {
           </li>
         ) : null}
       </ul>
-      </div>
-      {isConfirmationOpen && (
-        <WaitlistConfirmation
-          isOpen={isConfirmationOpen}
-          onClose={handleConfirmationClose}
-        />
-      )}
-    </>
+    </div>
   );
 };
+
 export default ConnectButton;
