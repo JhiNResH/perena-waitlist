@@ -1635,3 +1635,30 @@
   transform: translateY(1px);
   box-shadow: none !important;
 }
+
+.wallet-adapter-dropdown-list-item {
+  font-family: 'Sebastien Slab Round', sans-serif !important;
+  text-transform: uppercase !important;
+  color: #3c2a4d !important;
+  padding: 10px 15px;
+
+}
+
+.wallet-adapter-dropdown-list {
+  background-color: #d2bb94 !important;
+  color: #3c2a4d !important;
+  border: 1px solid #3c2a4d !important;
+  box-shadow: 1px 1px 0 #3c2a4d !important;
+  font-family: "Sebastien Slab Round", serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.03em !important;
+  
+}
+
+.wallet-adapter-dropdown-list-item:last-child {
+  border-bottom: none;
+}
+
+.wallet-adapter-dropdown-list-item:hover {
+  background-color: rgba(60, 42, 77, 0.1) !important;
+}

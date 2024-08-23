@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             </svg>
           </a>
           <a 
-            href="https://t.me/perenafi"
+            href="https://t.me/perena_community"
             target="_blank" 
             rel="noopener noreferrer"
             className="text-brand-purple hover:text-[#d2bb94] transition-colors"
