@@ -2,12 +2,12 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full py-4 border-t border-brand-purple">
-      <div className="w-full mx-auto px-[var(--40px)] max-w-[var(--max-width)] flex flex-col lg:flex-row justify-between items-center">
+    <footer className="w-full py-2 sm:py-3 md:py-4 border-t border-brand-purple">
+      <div className="w-full mx-auto sm:px-[var(--40px)] max-w-[var(--max-width)] flex flex-col lg:flex-row justify-between items-center">
         <div className="text-sm text-brand-purple order-3 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:text-left">
           <p style={{ fontFamily: '"Plusjakartasans", serif' }}>© 2024 Perena.org</p>
         </div>
-        <div className="flex space-x-4 text-sm text-brand-purple order-2 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:justify-center">
+        <div className="hidden lg:flex space-x-4 text-sm text-brand-purple order-2 lg:order-none mb-4 lg:mb-0 lg:w-1/3 lg:justify-center">
           <a href="/privacy-policy" className="hover:underline"
             style={{ fontFamily: '"Plusjakartasans", serif' }}
           >Privacy Policy</a>
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             </svg>
           </a>
           <a 
-            href="https://t.me/perena_community"
+            href="http://t.me/perena_community"
             target="_blank" 
             rel="noopener noreferrer"
             className="text-brand-purple hover:text-[#d2bb94] transition-colors"
