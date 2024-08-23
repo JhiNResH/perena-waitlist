@@ -5,6 +5,7 @@ import WaitlistConfirmation from './Waitlist/WaitlistConfirmation';
 
 interface FlipCircleProps {
     className?: string;
+    onJoinWaitlist: () => void;
 }
 
 const FlippableCircle: React.FC<FlipCircleProps> = ({
