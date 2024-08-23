@@ -52,6 +52,10 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({
                 <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', left: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>
                 <div className="absolute w-3 h-3 rounded-full" style={{ top: '50%', right: '-48px', transform: 'translateY(-50%)', backgroundColor: '#2a136a' }}></div>
             </div>
+
+            {/* 這裡很關鍵，因為是條件渲染，確認頁面就不會出現在 FlipCircle 的背面，
+            而是作為一個獨立的覆蓋層或模態框顯示 */}
+            
             {showConfirmation && (
                 <WaitlistConfirmation
                     isOpen={showConfirmation}
