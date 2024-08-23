@@ -7,7 +7,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onJoinWaitlist }) => {
   return (
-    <main className="flex-grow flex flex-col justify-center items-center px-4">
+    <main className="mt-20 flex-grow flex flex-col justify-center items-center px-4">
       <div className="flex flex-col items-center w-full max-w-2xl">
         <FlipCircle className="mb-14" onJoinWaitlist={onJoinWaitlist}/>
         <h1 className="text-2xl font-bold text-center leading-tight mb-2">
