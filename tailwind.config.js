@@ -31,6 +31,9 @@ export default {
       lineHeight: {
         'base': '20px',
       },
+      animation: {
+        'spin-slow': 'spin 8s linear infinite',
+      }
     },
     },
   plugins: [import('tailwindcss-animate')],

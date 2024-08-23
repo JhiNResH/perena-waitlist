@@ -1626,4 +1626,12 @@
   .flipped {
   transform: rotateX(180deg);
 }
+
+.custom-button {
+  cursor: pointer;
+}
   
+.custom-button:active {
+  transform: translateY(1px);
+  box-shadow: none !important;
+}
