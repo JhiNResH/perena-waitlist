@@ -1619,8 +1619,30 @@
       transform: rotateX(3780deg); /* 3 full rotations */
     }
   }
+
+  @keyframes horizontalFloat {
+    0% {
+      transform: translateX(-110px);
+    }
+    25% {
+      transform: translateX(-55px);
+    }
+    50% {
+      transform: translateX(-110px);
+    }
+    75% {
+      transform: translateX(-55px);
+    }
+    100% {
+      transform: translateX(-110px);
+    }
+  }
   
-  .animate-slow-spin {
+  .floating-text {
+    animation: horizontalFloat 5s ease-in-out infinite;
+    white-space: nowrap;
+  }
+    .animate-slow-spin {
     animation: slowSpin 5s cubic-bezier(0.25, 0.05, 0.55, 0.95) forwards;
   }
   .flipped {
