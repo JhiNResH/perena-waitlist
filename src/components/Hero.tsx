@@ -11,7 +11,7 @@ const Hero: React.FC<HeroProps> = ({ onJoinWaitlist }) => {
       <div className="flex flex-col items-center w-full max-w-2xl">
       <div className="relative mb-14">
       <div className="lg:hidden absolute top-[-2.5rem] left-1/2 transform -translate-x-1/2 text-lg text-brand-purple p-2 bg-opacity-50 rounded floating-text" style={{ fontFamily: '"Sebastien Slab Round", serif' }}>
-            Click the plants
+            Poke the Portal
           </div>
           <FlipCircle onJoinWaitlist={onJoinWaitlist} />
         </div>
@@ -22,7 +22,6 @@ const Hero: React.FC<HeroProps> = ({ onJoinWaitlist }) => {
           FOR MONEY
         </h2>
       </div>
-      
     </main>
   );
 };
