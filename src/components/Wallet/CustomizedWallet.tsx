@@ -104,7 +104,9 @@ const ConnectButton = (props: ConnectButtonProps) => {
       <div
         {...props}
         aria-expanded={menuOpen}
-        className={`button-waitlist ${props.className || ""}`}
+        className={`button-waitlist ${props.className || ""}
+          active:transform active:translate-y-0.5 active:shadow-none
+          transition-all duration-150`}
         style={{
           pointerEvents: menuOpen ? "none" : "auto",
           ...props.style,
@@ -139,7 +141,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
       >
         {publicKey ? (
           <li
-            className="wallet-adapter-dropdown-list-item"
+            className="wallet-adapter-dropdown-list-item active:bg-opacity-80 active:scale-95 transition-all duration-150"
             onClick={async () => {
               await navigator.clipboard.writeText(publicKey.toBase58());
               setCopied(true);
@@ -151,7 +153,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
           </li>
         ) : null}
         <li
-          className="wallet-adapter-dropdown-list-item"
+          className="wallet-adapter-dropdown-list-item active:bg-opacity-80 active:scale-95 transition-all duration-150"
           onClick={() => {
             setModalVisible(true);
             setMenuOpen(false);

@@ -55,7 +55,7 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({
 
             {/* 這裡很關鍵，因為是條件渲染，確認頁面就不會出現在 FlipCircle 的背面，
             而是作為一個獨立的覆蓋層或模態框顯示 */}
-            
+
             {showConfirmation && (
                 <WaitlistConfirmation
                     isOpen={showConfirmation}
