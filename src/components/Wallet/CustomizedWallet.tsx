@@ -83,7 +83,13 @@ const ConnectButton = (props: ConnectButtonProps) => {
   const content = useMemo(() => {
     if (publicKey) {
       const base58 = publicKey.toBase58();
-      return base58.slice(0, 4) + ".." + base58.slice(-4);
+      return (
+        <div className="flex items-center justify-center">
+          <span className="text-3xl font-bold" style={{ fontFamily: '"Sebastien Slab Round", serif' }}>
+            {base58.slice(0, 4)}...{base58.slice(-4)}
+          </span>
+        </div>
+      );
     } else {
       return (
         <div className="flex flex-col items-center">
@@ -91,8 +97,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
           <span className="text-4xl font-bold mt-1">Waitlist</span>
         </div>
       );
-    }
-  }, [publicKey]);
+    }  }, [publicKey]);
   
   return (
     <div className="wallet-adapter-dropdown">

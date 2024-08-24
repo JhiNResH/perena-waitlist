@@ -15,10 +15,10 @@ const Hero: React.FC<HeroProps> = ({ onJoinWaitlist }) => {
           </div>
           <FlipCircle onJoinWaitlist={onJoinWaitlist} />
         </div>
-        <h1 className="text-2xl font-bold text-center leading-tight mb-2">
+        <h1 className="text-3xl font-bold text-center leading-tight mb-2">
           INFRASTRUCTURE
         </h1>
-        <h2 className="text-2xl font-bold text-center leading-tight">
+        <h2 className="text-3xl font-bold text-center leading-tight">
           FOR MONEY
         </h2>
       </div>
