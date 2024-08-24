@@ -17,7 +17,7 @@ const Header: React.FC = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
-        className="bg-[#d2bb94] text-[#3c2a4d] px-6 py-2 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm font-sebastien uppercase tracking-wide cursor-pointer active:transform active:translate-y-0.5 active:shadow-none"
+        className="bg-[#d2bb94] text-[#3c2a4d] px-6 py-2 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm font-sebastien uppercase tracking-wide cursor-pointer active:transform active:translate-y-0.5 active:shadow-none relative overflow-hidden"
         style={{ 
           fontFamily: '"Sebastien Slab Round", serif',
           boxShadow: '1px 1px 0 #3c2a4d',
@@ -25,7 +25,20 @@ const Header: React.FC = () => {
           letterSpacing: '0.03em'
         }}
       >
-        {isHovered ? 'Launch Soon' : 'Launch App'}
+        <span 
+          className={`transition-transform duration-300 ${
+            isHovered ? 'translate-x-full' : 'translate-x-0'
+          }`}
+        >
+          Launch App
+        </span>
+        <span 
+          className={`absolute inset-0 bg-[#d2bb94] flex items-center justify-center transition-transform duration-300 ease-in-out ${
+            isHovered ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          Launch Soon
+        </span>
       </div>
     </header>
   );
