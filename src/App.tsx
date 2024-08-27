@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './global.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -13,12 +13,7 @@ import RegistrationSuccess from '../src/components/Waitlist/RegistrationSuccess'
 
 const App: React.FC = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const navigate = useNavigate();
 
-  const handleJoinWaitlist = async() => {
-    setShowConfirmation(true);
-    navigate('/registration');
-  };
 
   const handleCloseConfirmation = () => {
     setShowConfirmation(false);
@@ -27,7 +22,7 @@ const App: React.FC = () => {
   const MainContent = () => (
     <div className="flex flex-col min-h-screen bg-brand-cream text-brand-purple font-sans text-base leading-base">
       <Header />
-      <Hero onJoinWaitlist={handleJoinWaitlist} />
+      <Hero />
       <Footer />
       {showConfirmation && <WaitlistConfirmation isOpen={showConfirmation} onClose={handleCloseConfirmation} />}
     </div>
