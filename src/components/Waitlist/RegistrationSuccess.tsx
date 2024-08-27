@@ -13,7 +13,7 @@ const RegistrationSuccess = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-brand-cream">
       <div className="bg-white p-8 rounded-lg shadow-md text-center">
-        <h2 className="text-2xl font-bold mb-4 text-brand-purple">Registration Successful!</h2>
+        <h2 className="text-2xl font-bold mb-4 text-brand-purple">LFG! You're in</h2>
         <p className="mb-4">Thank you for joining our waitlist.</p>
         <p className="mb-4">Your referral code is:</p>
         <div className="text-2xl font-bold mb-4 text-brand-purple">{referralCode}</div>
