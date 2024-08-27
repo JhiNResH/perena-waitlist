@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import ConnectWallet from '../Wallet/ConnectWallet';
 
 interface WaitlistConfirmationProps {
   isOpen: boolean;
@@ -6,6 +8,14 @@ interface WaitlistConfirmationProps {
 }
 
 const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
+
+  const handleJoinWaitlist = () => {
+    // 這裡假設錢包連接和簽名已經完成
+    onClose();
+    navigate('/registration');
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -32,11 +42,12 @@ const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onC
                 letterSpacing: '0.03em'
               }}
             >
-              Close
+              Join Perena Alpha Chat
             </div>
           </div>
         </div>
         <img src="/ConfirmCircle.png" alt="Early access stamp" className="absolute top-2 right-2 w-32 h-32 z-20 animate-spin-slow" />
+        <ConnectWallet onJoinWaitlist={handleJoinWaitlist} />
       </div>
     </div>
   );
