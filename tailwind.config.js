@@ -32,9 +32,14 @@ export default {
         'base': '20px',
       },
       animation: {
-        'spin-slow': 'spin 8s linear infinite',
-      }
-    },
+        'spin': 'spin 10s linear infinite',
+      },
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        }
+      }    },
     },
   plugins: [import('tailwindcss-animate')],
 }
