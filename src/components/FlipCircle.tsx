@@ -36,7 +36,7 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({className = '', onHoverChan
                 transition: { duration, ease: easing }
             }),
             pageControls.start({
-                scale: 0.9,
+                scale: 0,
                 opacity: 0,
                 rotate: 720,
                 filter: 'brightness(0)',
@@ -59,9 +59,9 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({className = '', onHoverChan
     
     return (
         <motion.div 
-        className={`relative w-64 h-64 mb-8 ${className} cursor-pointer `} 
-        style={{ originX: 0.5, originY: 0.5 }}
-        animate={pageControls}
+        className={`relative w-64 h-64 mb-8 ${className} cursor-pointer`} 
+            style={{ originX: 0.5, originY: 0.5 }}
+            animate={pageControls}
         >
             <motion.div 
                 className={`relative w-64 h-64 mb-8 ${className}`} 
@@ -85,10 +85,10 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({className = '', onHoverChan
                         scale: 1.05,
                     }}
                     whileTap={{
-                    scale: 0.95,
-                    boxShadow: '0 0 15px rgba(210, 187, 148, 0.6), 0 0 30px rgba(210, 187, 148, 0.4), 0 0 45px rgba(210, 187, 148, 0.2)',
-                    transition: { duration: 0.1 }
-                }}
+                        scale: 0.95,
+                        boxShadow: '0 0 15px rgba(210, 187, 148, 0.6), 0 0 30px rgba(210, 187, 148, 0.4), 0 0 45px rgba(210, 187, 148, 0.2)',
+                        transition: { duration: 0.1 }
+                    }}
                     transition={{
                         boxShadow: { duration: 0.3, ease: 'easeInOut' },
                         filter: { duration: 0.3, ease: 'easeInOut' },
@@ -120,11 +120,11 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({className = '', onHoverChan
             {/* <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" viewBox="0 0 300 300">
                 <path id="circle" d="M150,150 m-130,0 a130,130 0 1,1 260,0 a130,130 0 1,1 -260,0" fill="none"/>
                 <text className="text-[14px] uppercase fill-brand-purple">
-                <textPath xlinkHref="#circle" startOffset="0%">
-                <animate attributeName="startOffset" from="0%" to="100%" dur="30s" repeatCount="indefinite"/>
-                Enter Perena • Enter Perena • Enter Perena • Enter Perena • Enter Perena • Enter Perena • Enter Perena •
-                </textPath>
-            </text>
+                    <textPath xlinkHref="#circle" startOffset="0%">
+                        <animate attributeName="startOffset" from="0%" to="100%" dur="30s" repeatCount="indefinite"/>
+                        Enter Perena • Enter Perena • Enter Perena • Enter Perena • Enter Perena • Enter Perena •
+                    </textPath>
+                </text>
             </svg> */}
         </motion.div>
     );
