@@ -1707,3 +1707,36 @@
 .wallet-adapter-dropdown-list-item:hover {
   background-color: rgba(60, 42, 77, 0.1) !important;
 }
+
+@keyframes wind {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.grass-background {
+    position: relative;
+    overflow: hidden;
+}
+
+.grass-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/path-to-your-grass-texture.png');
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.grass-background:hover::before {
+    opacity: 0.2;
+    animation: wind 10s linear infinite;
+}
