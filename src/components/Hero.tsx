@@ -20,10 +20,10 @@ const Hero: React.FC = () => {
           </div>
           <FlipCircle onHoverChange={setIsCircleHovered} />
         </div>
-        <h1 className="text-3xl font-bold text-center leading-tight mb-2">
+        <h1 className="text-3xl font-bold text-brand-purple text-center leading-tight mb-2">
           INFRASTRUCTURE
         </h1>
-        <h2 className="text-3xl font-bold text-center leading-tight">
+        <h2 className="text-3xl font-bold text-brand-purple text-center leading-tight">
           FOR MONEY
         </h2>
       </div>

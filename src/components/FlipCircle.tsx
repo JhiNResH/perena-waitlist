@@ -36,7 +36,7 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({className = '', onHoverChan
                 transition: { duration, ease: easing }
             }),
             pageControls.start({
-                scale: 0,
+                scale: 0.9,
                 opacity: 0,
                 rotate: 720,
                 filter: 'brightness(0)',
