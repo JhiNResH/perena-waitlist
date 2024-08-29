@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Header: React.FC = () => {
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
     window.open('https://t.me/perenafi', '_blank');
@@ -14,8 +13,6 @@ const Header: React.FC = () => {
         <img src='/logo.svg' alt='Perana text' className='h-4 w-auto' />
       </div>        
       <div 
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={handleClick}
         className="bg-[#d2bb94] text-[#3c2a4d] px-6 py-2 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm font-sebastien uppercase tracking-wide cursor-pointer active:transform active:translate-y-0.5 active:shadow-none relative overflow-hidden"
         style={{ 
@@ -25,11 +22,7 @@ const Header: React.FC = () => {
           letterSpacing: '0.03em'
         }}
       >
-        <span 
-          className={`transition-transform duration-300 ${
-            isHovered ? 'translate-x-full' : 'translate-x-0'
-          }`}
-        >
+        <span>
           Connect Wallet
         </span>
       </div>

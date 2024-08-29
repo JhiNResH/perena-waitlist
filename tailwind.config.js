@@ -16,6 +16,10 @@ export default {
       'xl': '1280px',
     },
     extend: {
+      backgroundColor: ['hover', 'active'],
+      transform: ['active'],
+      translate: ['active'],
+      boxShadow: ['active'],
       colors: {
         'brand-cream': 'var(--brand-cream)',
         'brand-purple': 'var(--brand-purple)',
@@ -39,7 +43,8 @@ export default {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         }
-      }    },
+      }
+    },
     },
   plugins: [import('tailwindcss-animate')],
 }
