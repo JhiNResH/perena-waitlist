@@ -86,7 +86,7 @@ const Registration = () => {
             <div className="bg-[#3c2a4d] p-4 rounded-sm border border-[#d2bb94]">
               <h2 className="text-xl mb-3 text-[#d2bb94] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
                 <span className="bg-[#d2bb94] text-[#3c2a4d] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-sm">2</span>
-                Connect wallet and sign
+                Connect your wallet and sign the message
               </h2>
               <p className="text-[#d2bb94] mb-3 text-sm">
                 Sign to confirm eligibility.
