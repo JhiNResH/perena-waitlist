@@ -80,7 +80,7 @@ const Registration = () => {
                 </div>
                 <div 
                   onClick={handlePost}
-                  className="w-full bg-[#d2bb94] text-[#3c2a4d] px-6 py-2 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal"
+                  className="w-full bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm flex items-center border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal"
                 >
                   Retweet
                 </div>
