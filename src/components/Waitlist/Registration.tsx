@@ -78,29 +78,33 @@ const Registration = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="space-y-4 bg-[#3c2a4d] p-6 rounded-lg shadow-lg"
           >
-            <h2 className="text-xl mb-4 text-[#d2bb94] font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-              Join Perena, and tell the world about Perena
-            </h2>
             <div className={`bg-[#d2bb94] p-4 rounded-sm border border-[#3c2a4d] ${step !== 1 ? 'opacity-50' : ''}`}>
               <h2 className="text-xl mb-3 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
                 <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-sm">1</span>
                 Join Perena, and tell your friends
               </h2>
               <div className="space-y-2">
-                <span className="text-sm text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                  Follow on X:
-                </span>
-                <div 
-                  onClick={handleFollow}
-                  className={`w-full bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm flex items-center border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                >
-                  @Perena__ {followCompleted && '✓'}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                    Follow on X:
+                  </span>
+                  <div 
+                    onClick={handleFollow}
+                    className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                  >
+                    @Perena__ {followCompleted && '✓'}
+                  </div>
                 </div>
-                <div 
-                  onClick={handlePost}
-                  className={`w-full bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm flex items-center border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                >
-                  Retweet {retweetCompleted && '✓'}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                    Click Post to share the Promo Announcement:
+                  </span>
+                  <div 
+                    onClick={handlePost}
+                    className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                  >
+                    Repost {retweetCompleted && '✓'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -110,13 +114,18 @@ const Registration = () => {
                 Connect your wallet and sign the message
               </h2>
               <p className="text-[#3c2a4d] mb-3 text-sm">
-                Sign to confirm eligibility. Your connected wallet will qualify to rewards.
+                Sign to confirm eligibility. Your connected wallet will qualify to claim double PERENA rewards.
               </p>
-              <div 
-                onClick={step === 2 ? handleConnectWallet : undefined}
-                className={`w-full bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm flex items-center border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none' : ''}`}
-              >
-                Connect Wallet
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                  Connect your wallet:
+                </span>
+                <div 
+                  onClick={step === 2 ? handleConnectWallet : undefined}
+                  className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none' : ''}`}
+                >
+                  Connect Wallet
+                </div>
               </div>
             </div>
           </motion.div>
