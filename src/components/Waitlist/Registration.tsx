@@ -18,6 +18,7 @@ const Registration = () => {
   const [step, setStep] = useState(1);
   const [followCompleted, setFollowCompleted] = useState(false);
   const [retweetCompleted, setRetweetCompleted] = useState(false);
+  const [stepOneCompleted, setStepOneCompleted] = useState(false);
 
   useEffect(() => {
     controls.start({
@@ -43,6 +44,7 @@ const Registration = () => {
 
   useEffect(() => {
     if (followCompleted && retweetCompleted) {
+      setStepOneCompleted(true);
       setStep(2);
     }
   }, [followCompleted, retweetCompleted]);
@@ -68,7 +70,7 @@ const Registration = () => {
       <Header />
       <main className="flex-grow flex justify-center items-center px-4 py-[var(--80px)]">
         <motion.div 
-          className="w-full max-w-xl" // 調整最大寬度
+          className="w-full max-w-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
@@ -76,54 +78,55 @@ const Registration = () => {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="space-y-5 bg-[#3c2a4d] p-7 rounded-lg shadow-lg" // 調整內邊距和間距
+            className="space-y-5 bg-[#3c2a4d] p-7 rounded-lg shadow-lg"
           >
-            {/* 主標題 */}
-            <h2 className="text-xl mb-5 text-[#d2bb94] font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-              Join Perena, and tell the world about Perena
-            </h2>
-            {/* 第一步：關注和轉發 */}
-            <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 1 ? 'opacity-50' : ''}`}>
-              <h2 className="text-2xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-2xl">1</span>
-                Join Perena, and tell your friends
-              </h2>
-              <div className="space-y-3">
-                {/* 關注按鈕 */}
-                <div className="flex items-center justify-between">
-                  <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                    Follow on X:
-                  </span>
-                  <div 
-                    onClick={handleFollow}
-                    className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                  >
-                    <span>@Perena__</span>
-                    {followCompleted && <span className="ml-2">✓</span>}
+            {stepOneCompleted ? (
+              <div className="bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] flex items-center">
+                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-base">✓</span>
+                <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                  Joined Perena and shared with friends
+                </span>
+              </div>
+            ) : (
+              <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 1 ? 'opacity-50' : ''}`}>
+                <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
+                  <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-base">1</span>
+                  Join Perena, and tell your friends
+                </h2>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                      Follow on X:
+                    </span>
+                    <div 
+                      onClick={handleFollow}
+                      className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                    >
+                      <span>@Perena__</span>
+                      {followCompleted && <span className="ml-2">✓</span>}
+                    </div>
                   </div>
-                </div>
-                {/* 轉發按鈕 */}
-                <div className="flex items-center justify-between">
-                  <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                    Click Post to share the Promo Announcement:
-                  </span>
-                  <div 
-                    onClick={handlePost}
-                    className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                  >
-                    <span>Repost</span>
-                    {retweetCompleted && <span className="ml-2">✓</span>}
+                  <div className="flex items-center justify-between">
+                    <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                      Click Post to share the Promo Announcement:
+                    </span>
+                    <div 
+                      onClick={handlePost}
+                      className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                    >
+                      <span>Repost</span>
+                      {retweetCompleted && <span className="ml-2">✓</span>}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            {/* 第二步：連接錢包 */}
+            )}
             <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 2 ? 'opacity-50' : ''}`}>
-              <h2 className="text-2xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-xl">2</span>
+              <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
+                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-base">2</span>
                 Connect your wallet and sign the message
               </h2>
-              <p className="text-[#3c2a4d] mb-4 text-lg font-['Sebastien_Slab_Round']">
+              <p className="text-[#3c2a4d] mb-4 text-base font-['Sebastien_Slab_Round']">
                 Sign to confirm eligibility. Your connected wallet will qualify to claim double PERENA rewards.
               </p>
               <div className="flex justify-center">
