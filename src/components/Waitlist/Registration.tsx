@@ -110,7 +110,7 @@ const Registration = () => {
                 Connect your wallet and sign the message
               </h2>
               <p className="text-[#3c2a4d] mb-3 text-sm">
-                Sign to confirm eligibility. Your connected wallet will qualify to claim double PERENA rewards.
+                Sign to confirm eligibility. Your connected wallet will qualify to rewards.
               </p>
               <div 
                 onClick={step === 2 ? handleConnectWallet : undefined}
