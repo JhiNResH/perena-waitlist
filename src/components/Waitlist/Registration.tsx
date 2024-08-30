@@ -96,16 +96,17 @@ const Registration = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                    Click Post to share the Promo Announcement:
-                  </span>
-                  <div 
-                    onClick={handlePost}
-                    className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                  >
-                    Repost {retweetCompleted && '✓'}
-                  </div>
+                <span className="text-sm text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                  Click Post to share the Promo Announcement:
+                </span>
+                <div 
+                  onClick={handlePost}
+                  className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-4 py-1 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-sm uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                >
+                  <span>Repost</span>
+                  {retweetCompleted && <span className="ml-1">✓</span>}
                 </div>
+              </div>
               </div>
             </div>
             <div className={`bg-[#d2bb94] p-4 rounded-sm border border-[#3c2a4d] ${step !== 2 ? 'opacity-50' : ''}`}>
