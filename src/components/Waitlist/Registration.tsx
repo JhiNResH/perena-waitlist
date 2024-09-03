@@ -3,6 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import Header from '../Header';
 import Footer from '../Footer';
 
+
 declare global {
   interface Window {
     twttr: {

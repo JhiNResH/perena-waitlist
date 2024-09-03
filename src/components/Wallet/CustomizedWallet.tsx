@@ -1,47 +1,22 @@
-import React, { useEffect, useState, useMemo, useRef, useCallback } from "react";
-import { useWalletMultiButton } from "@solana/wallet-adapter-base-ui";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
 
 interface ConnectButtonProps {
   className?: string;
   style?: React.CSSProperties;
   onJoinWaitlist: () => void;
+  step: number;
 }
 
 const ConnectButton = (props: ConnectButtonProps) => {
-  const { onJoinWaitlist } = props;
+  const { onJoinWaitlist, step } = props;
 
   const { setVisible: setModalVisible } = useWalletModal();
-  const { buttonState, onConnect, onDisconnect, publicKey } =
-    useWalletMultiButton({
-      onSelectWallet() {
-        setModalVisible(true);
-      },
-    });
-  const { signMessage } = useWallet();
+  const { publicKey, connected, disconnect, signMessage } = useWallet();
 
-  const [copied, setCopied] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
-  const ref = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      const node = ref.current;
-      if (!node || node.contains(event.target as Node)) return;
-      setMenuOpen(false);
-    };
-
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, []);
 
   const handleJoinWaitlist = useCallback(async () => {
     if (publicKey && signMessage && !hasJoinedWaitlist) {
@@ -81,7 +56,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
   }, [publicKey, handleJoinWaitlist, hasJoinedWaitlist]);
 
   const content = useMemo(() => {
-    if (publicKey) {
+    if (connected && publicKey) {
       const base58 = publicKey.toBase58();
       return (
         <div className="flex items-center justify-center">
@@ -93,88 +68,30 @@ const ConnectButton = (props: ConnectButtonProps) => {
     } else {
       return (
         <div className="flex flex-col items-center">
-          <span className="text-lg font-plusjakartasans font-light">Join the</span>
-          <span className="text-4xl font-bold mt-1">Waitlist</span>
+          <span className="text-lg font-plusjakartasans font-light">Connect</span>
+          <span className="text-4xl font-bold mt-1">Wallet</span>
         </div>
       );
-    }  }, [publicKey]);
+    }
+  }, [connected, publicKey]);
   
+  const handleClick = () => {
+    if (connected) {
+      disconnect();
+    } else {
+      setModalVisible(true);
+    }
+  };
+
   return (
-    <div className="wallet-adapter-dropdown">
-      <div
-        {...props}
-        aria-expanded={menuOpen}
-        className={`button-waitlist ${props.className || ""}
-          active:transform active:translate-y-0.5 active:shadow-none
-          transition-all duration-150`}
-        style={{
-          pointerEvents: menuOpen ? "none" : "auto",
-          ...props.style,
-        }}
-        onClick={() => {
-          switch (buttonState) {
-            case "no-wallet":
-              setModalVisible(true);
-              break;
-            case "has-wallet":
-              if (onConnect) {
-                onConnect();
-              }
-              break;
-            case "connected":
-              setMenuOpen(true);
-              break;
-          }
-        }}
-        role="button"
-        tabIndex={0}
-      >
-        {content}
-      </div>
-      <ul
-        aria-label="dropdown-list"
-        className={`wallet-adapter-dropdown-list ${
-          menuOpen && "wallet-adapter-dropdown-list-active"
-        }`}
-        ref={ref}
-        role="menu"
-      >
-        {publicKey ? (
-          <li
-            className="wallet-adapter-dropdown-list-item active:bg-opacity-80 active:scale-95 transition-all duration-150"
-            onClick={async () => {
-              await navigator.clipboard.writeText(publicKey.toBase58());
-              setCopied(true);
-              setTimeout(() => setCopied(false), 400);
-            }}
-            role="menuitem"
-          >
-            {copied ? "copied" : "copy address"}
-          </li>
-        ) : null}
-        <li
-          className="wallet-adapter-dropdown-list-item active:bg-opacity-80 active:scale-95 transition-all duration-150"
-          onClick={() => {
-            setModalVisible(true);
-            setMenuOpen(false);
-          }}
-          role="menuitem"
-        >
-          {"change wallet"}
-        </li>
-        {onDisconnect ? (
-          <li
-            className="wallet-adapter-dropdown-list-item"
-            onClick={() => {
-              onDisconnect();
-              setMenuOpen(false);
-            }}
-            role="menuitem"
-          >
-            {"disconnect"}
-          </li>
-        ) : null}
-      </ul>
+    <div
+      {...props}
+      className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none opacity-50' : ''} ${props.className || ""}`}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+    >
+      {content}
     </div>
   );
 };
