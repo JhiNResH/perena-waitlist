@@ -12,40 +12,29 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import ConnectButton from './CustomizedWallet';
 
 interface WalletProps {
-    onJoinWaitlist: () => void;}
+    onJoinWaitlist: () => void;
+    step: number;
+}
 
-export const Wallet: FC<WalletProps> = ({ onJoinWaitlist }) => {
-    // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
+export const Wallet: FC<WalletProps> = ({ onJoinWaitlist, step }) => {
     const network = WalletAdapterNetwork.Devnet;
-
-    // You can also provide a custom RPC endpoint.
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
     const wallets = useMemo(
         () => [
             new UnsafeBurnerWalletAdapter(),
         ],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [network]
+        []
     );
 
     return (
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <WalletContent onJoinWaitlist={onJoinWaitlist} />
+                    <ConnectButton onJoinWaitlist={onJoinWaitlist} step={step} />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
-    );
-};
-
-const WalletContent: FC<WalletProps> = ({ onJoinWaitlist }) => {
-    return (
-        <>
-            <ConnectButton  onJoinWaitlist={onJoinWaitlist}/>
-            { /* Your app's components go here, nested within the context providers. */ }
-        </>
     );
 };
 

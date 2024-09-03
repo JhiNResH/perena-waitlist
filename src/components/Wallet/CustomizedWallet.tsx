@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
@@ -10,13 +10,32 @@ interface ConnectButtonProps {
   step: number;
 }
 
-const ConnectButton = (props: ConnectButtonProps) => {
-  const { onJoinWaitlist, step } = props;
+const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
+  const { onJoinWaitlist, step, className, style } = props;
 
-  const { setVisible: setModalVisible } = useWalletModal();
+  const { setVisible } = useWalletModal();
   const { publicKey, connected, disconnect, signMessage } = useWallet();
 
   const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const ref = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const listener = (event: MouseEvent | TouchEvent) => {
+      const node = ref.current;
+      if (!node || node.contains(event.target as Node)) return;
+      setMenuOpen(false);
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
+    };
+  }, []);
 
   const handleJoinWaitlist = useCallback(async () => {
     if (publicKey && signMessage && !hasJoinedWaitlist) {
@@ -76,21 +95,65 @@ const ConnectButton = (props: ConnectButtonProps) => {
   
   const handleClick = () => {
     if (connected) {
-      disconnect();
+      setMenuOpen(!menuOpen);
     } else {
-      setModalVisible(true);
+      setVisible(true);
     }
   };
 
   return (
-    <div
-      {...props}
-      className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none opacity-50' : ''} ${props.className || ""}`}
-      onClick={handleClick}
-      role="button"
-      tabIndex={0}
-    >
-      {content}
+    <div className="wallet-adapter-dropdown">
+      <div
+        className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none opacity-50' : ''} ${className || ""}`}
+        style={style}
+        onClick={handleClick}
+        role="button"
+        tabIndex={0}
+      >
+        {content}
+      </div>
+      {connected && (
+        <ul
+          aria-label="dropdown-list"
+          className={`wallet-adapter-dropdown-list ${
+            menuOpen ? "wallet-adapter-dropdown-list-active" : ""
+          }`}
+          ref={ref}
+          role="menu"
+        >
+          <li
+            className="wallet-adapter-dropdown-list-item"
+            onClick={async () => {
+              await navigator.clipboard.writeText(publicKey!.toBase58());
+              setCopied(true);
+              setTimeout(() => setCopied(false), 400);
+            }}
+            role="menuitem"
+          >
+            {copied ? "Copied" : "Copy address"}
+          </li>
+          <li
+            className="wallet-adapter-dropdown-list-item"
+            onClick={() => {
+              setVisible(true);
+              setMenuOpen(false);
+            }}
+            role="menuitem"
+          >
+            Change wallet
+          </li>
+          <li
+            className="wallet-adapter-dropdown-list-item"
+            onClick={() => {
+              disconnect();
+              setMenuOpen(false);
+            }}
+            role="menuitem"
+          >
+            Disconnect
+          </li>
+        </ul>
+      )}
     </div>
   );
 };
