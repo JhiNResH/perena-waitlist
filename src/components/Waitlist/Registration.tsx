@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import Header from '../Header';
 import Footer from '../Footer';
-
+import ConnectButton from '../Wallet/CustomizedWallet';
 
 declare global {
   interface Window {
@@ -62,8 +62,8 @@ const Registration = () => {
     setRetweetCompleted(true);
   };
 
-  const handleConnectWallet = () => {
-    console.log('Connecting wallet');
+  const handleJoinWaitlist = () => {
+    console.log('Joined waitlist');
   };
 
   return (
@@ -91,7 +91,7 @@ const Registration = () => {
             ) : (
               <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 1 ? 'opacity-50' : ''}`}>
                 <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-                  <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-base">1</span>
+                  <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">1</span>
                   Join Perena, and tell your friends
                 </h2>
                 <div className="space-y-3">
@@ -101,7 +101,7 @@ const Registration = () => {
                     </span>
                     <div 
                       onClick={handleFollow}
-                      className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                      className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out textlg uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
                     >
                       <span>@Perena__</span>
                       {followCompleted && <span className="ml-2">✓</span>}
@@ -124,19 +124,17 @@ const Registration = () => {
             )}
             <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 2 ? 'opacity-50' : ''}`}>
               <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-base">2</span>
+                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">2</span>
                 Connect your wallet and sign the message
               </h2>
-              <p className="text-[#3c2a4d] mb-4 text-base font-['Sebastien_Slab_Round']">
+              <p className="text-[#3c2a4d] mb-4 text-lg font-['Sebastien_Slab_Round']">
                 Sign to confirm eligibility. Your connected wallet will qualify to claim double PERENA rewards.
               </p>
               <div className="flex justify-center">
-                <div 
-                  onClick={step === 2 ? handleConnectWallet : undefined}
-                  className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none' : ''}`}
-                >
-                  Connect Wallet
-                </div>
+                <ConnectButton
+                  onJoinWaitlist={handleJoinWaitlist}
+                  step={step}
+                />
               </div>
             </div>
           </motion.div>

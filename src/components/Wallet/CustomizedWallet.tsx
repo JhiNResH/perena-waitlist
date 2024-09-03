@@ -68,8 +68,7 @@ const ConnectButton = (props: ConnectButtonProps) => {
     } else {
       return (
         <div className="flex flex-col items-center">
-          <span className="text-lg font-plusjakartasans font-light">Connect</span>
-          <span className="text-4xl font-bold mt-1">Wallet</span>
+          <span className="text-base font-light">Connect Wallet</span>
         </div>
       );
     }
