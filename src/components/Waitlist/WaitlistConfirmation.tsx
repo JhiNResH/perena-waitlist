@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import ConnectWallet from '../Wallet/ConnectWallet';
 
 interface WaitlistConfirmationProps {
   isOpen: boolean;
@@ -9,12 +8,6 @@ interface WaitlistConfirmationProps {
 
 const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
-
-  const handleJoinWaitlist = () => {
-    // 這裡假設錢包連接和簽名已經完成
-    onClose();
-    navigate('/registration');
-  };
 
   if (!isOpen) return null;
 
@@ -30,10 +23,16 @@ const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onC
           <div className="bg-[#fffef7] rounded-lg p-8 w-[90%] h-[90%] flex flex-col justify-center items-center">
             <img src="/perenanobg.svg" alt="Perena logo" className='h-16 w-auto mb-8' />
             <h2 className="text-3xl font-500 text-center mb-4 text-brand-purple uppercase">
-              You're invited<br />to join our waitlist
+              Congratulations!<br />You've joined our waitlist
             </h2>
+            <p className="text-center text-lg mb-8">
+              Thank you for joining the Perena waitlist. We'll keep you updated on our progress.
+            </p>
             <div 
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                navigate('/');
+              }}
               className="mt-8 px-6 py-2 bg-[#d2bb94] text-[#3c2a4d] rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
               style={{ 
                 fontFamily: '"Sebastien Slab Round", serif',
@@ -42,12 +41,11 @@ const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onC
                 letterSpacing: '0.03em'
               }}
             >
-              Join Perena Alpha Chat
+              Return to Home
             </div>
           </div>
         </div>
         <img src="/ConfirmCircle.png" alt="Early access stamp" className="absolute top-2 right-2 w-32 h-32 z-20 animate-spin-slow" />
-        <ConnectWallet onJoinWaitlist={handleJoinWaitlist} />
       </div>
     </div>
   );

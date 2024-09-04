@@ -3,6 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import Header from '../Header';
 import Footer from '../Footer';
 import Wallet from '../Wallet/ConnectWallet';
+import WaitlistConfirmation from './WaitlistConfirmation';
 
 declare global {
   interface Window {
@@ -20,7 +21,9 @@ const Registration = () => {
   const [followCompleted, setFollowCompleted] = useState(false);
   const [retweetCompleted, setRetweetCompleted] = useState(false);
   const [stepOneCompleted, setStepOneCompleted] = useState(false);
-
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  
   useEffect(() => {
     controls.start({
       scale: [0, 1.1, 1],
@@ -49,6 +52,12 @@ const Registration = () => {
     }
   }, [followCompleted, retweetCompleted]);
 
+  useEffect(() => {
+    if (stepOneCompleted && walletConnected) {
+      setShowConfirmation(true);
+    }
+  }, [stepOneCompleted, walletConnected]);
+
   const handleFollow = () => {
     window.open('https://twitter.com/intent/follow?screen_name=Perena__', '_blank');
     setFollowCompleted(true);
@@ -62,8 +71,12 @@ const Registration = () => {
   };
 
   const handleJoinWaitlist = () => {
+    setWalletConnected(true);
     console.log('Joined waitlist');
     // Add any additional logic for joining the waitlist here
+  };
+  const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
   };
 
   return (
@@ -138,6 +151,9 @@ const Registration = () => {
         </motion.div>
       </main>
       <Footer />
+      {showConfirmation && (
+        <WaitlistConfirmation isOpen={showConfirmation} onClose={handleCloseConfirmation} />
+      )}
     </div>
   );
 };

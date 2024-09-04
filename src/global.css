@@ -1666,7 +1666,7 @@
     animation: horizontalFloat 5s ease-in-out infinite;
     white-space: nowrap;
   }
-    .animate-slow-spin {
+  .animate-slow-spin {
     animation: slowSpin 5s cubic-bezier(0.25, 0.05, 0.55, 0.95) forwards;
   }
   .flipped {
