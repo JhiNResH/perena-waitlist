@@ -25,9 +25,6 @@ const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onC
             <h2 className="text-3xl font-500 text-center mb-4 text-brand-purple uppercase">
               Congratulations!<br />You've joined our waitlist
             </h2>
-            <p className="text-center text-lg mb-8">
-              Thank you for joining the Perena waitlist. We'll keep you updated on our progress.
-            </p>
             <div 
               onClick={() => {
                 onClose();
