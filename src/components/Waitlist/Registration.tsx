@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
@@ -15,7 +15,7 @@ declare global {
   }
 }
 
-const Registration = () => {
+const Registration: React.FC = () => {
   const controls = useAnimation();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -77,7 +77,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-brand-cream overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-brand-cream">
       <Header />
       <main className="flex-grow flex justify-center items-center px-4 py-[var(--80px)]">
         <motion.div 
