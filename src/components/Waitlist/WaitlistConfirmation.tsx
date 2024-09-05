@@ -42,7 +42,12 @@ const WaitlistConfirmation: React.FC<WaitlistConfirmationProps> = ({ isOpen, onC
             </div>
           </div>
         </div>
-        <img src="/ConfirmCircle.png" alt="Early access stamp" className="absolute top-2 right-2 w-32 h-32 z-20 animate-spin-slow" />
+        <img 
+          src="/ConfirmCircle.png" 
+          alt="Early access stamp" 
+          className="absolute top-2 right-2 w-32 h-32 z-20" 
+          style={{ animation: 'spin 5s linear infinite' }}
+        />
       </div>
     </div>
   );
