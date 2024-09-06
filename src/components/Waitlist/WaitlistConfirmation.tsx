@@ -1,10 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 
 const WaitlistConfirmation: React.FC = () => {
   const navigate = useNavigate();
+  const [referralCode, setReferralCode] = useState<string>('');
+
+  useEffect(() => {
+    // 生成推薦碼的邏輯
+    const generateReferralCode = () => {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 8; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return result;
+    };
+
+    setReferralCode(generateReferralCode());
+  }, []);
+
+  const handleCopyReferralCode = () => {
+    navigator.clipboard.writeText(referralCode).then(() => {
+      alert('Referral code copied to clipboard!');
+    }, (err) => {
+      console.error('Could not copy text: ', err);
+    });
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-cream">
@@ -22,9 +45,27 @@ const WaitlistConfirmation: React.FC = () => {
               <h2 className="text-3xl font-500 text-center mb-4 text-brand-purple uppercase">
                 Congratulations!<br />You've joined our waitlist
               </h2>
+              <p className="text-xl text-center mb-4 text-brand-purple">
+                Your referral code is:
+              </p>
+              <div className="bg-[#d2bb94] text-[#3c2a4d] px-4 py-2 rounded-md text-2xl font-bold mb-4">
+                {referralCode}
+              </div>
+              <button 
+                onClick={handleCopyReferralCode}
+                className="mb-4 px-6 py-2 bg-[#3c2a4d] text-[#d2bb94] rounded-sm border border-[#d2bb94] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
+                style={{ 
+                  fontFamily: '"Sebastien Slab Round", serif',
+                  boxShadow: '1px 1px 0 #d2bb94',
+                  fontWeight: 400,
+                  letterSpacing: '0.03em'
+                }}
+              >
+                Copy Referral Code
+              </button>
               <div 
                 onClick={() => navigate('/')}
-                className="mt-8 px-6 py-2 bg-[#d2bb94] text-[#3c2a4d] rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
+                className="mt-4 px-6 py-2 bg-[#d2bb94] text-[#3c2a4d] rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
                 style={{ 
                   fontFamily: '"Sebastien Slab Round", serif',
                   boxShadow: '1px 1px 0 #3c2a4d',
