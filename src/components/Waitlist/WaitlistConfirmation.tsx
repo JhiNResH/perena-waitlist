@@ -1,10 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 
 const WaitlistConfirmation: React.FC = () => {
-  const navigate = useNavigate();
+
+  const handleJoinAlphaChat = () => {
+    window.open('https://t.me/perenafi', '_blank');
+  };
+
   // const [referralCode, setReferralCode] = useState<string>('');
 
   // const fetchReferralCode = async (address: string) => {
@@ -50,7 +53,7 @@ const WaitlistConfirmation: React.FC = () => {
             <div className="bg-[#fffef7] rounded-lg p-8 w-[90%] h-[90%] flex flex-col justify-center items-center">
               <img src="/perenanobg.svg" alt="Perena logo" className='h-16 w-auto mb-8' />
               <h2 className="text-3xl font-500 text-center mb-4 text-brand-purple uppercase">
-                Congratulations!<br />You've joined our waitlist
+                Welcome aboard, gardener!
               </h2>
               {/* <p className="text-xl text-center mb-4 text-brand-purple">
                 Your referral code is:
@@ -59,7 +62,7 @@ const WaitlistConfirmation: React.FC = () => {
                 {referralCode}
               </div> */}
               <div 
-                onClick={() => navigate('/')}
+                onClick={handleJoinAlphaChat}
                 className="mt-4 px-6 py-2 bg-[#d2bb94] text-[#3c2a4d] rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
                 style={{ 
                   fontFamily: '"Sebastien Slab Round", serif',
@@ -68,7 +71,7 @@ const WaitlistConfirmation: React.FC = () => {
                   letterSpacing: '0.03em'
                 }}
               >
-                Return to Home
+                Join the Alpha Chat
               </div>
             </div>
           </div>
