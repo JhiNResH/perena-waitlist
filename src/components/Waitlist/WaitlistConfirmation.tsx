@@ -1,26 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 
 const WaitlistConfirmation: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [referralCode, setReferralCode] = useState<string>('');
 
   useEffect(() => {
+    const state = location.state as { walletAddress: string } | null;
+    const walletAddress = state?.walletAddress || localStorage.getItem('walletAddress');
+  
     // 生成推薦碼的邏輯
-    const generateReferralCode = () => {
-      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      let result = '';
-      for (let i = 0; i < 8; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    const generateReferralCode = (address: string) => {
+      if (!address) {
+        // 如果沒有地址，生成一個完全隨機的代碼
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        for (let i = 0; i < 12; i++) {
+          result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
       }
-      return result;
+  
+      // 使用錢包地址的前8個字符作為基礎
+      const base = address.slice(0, 8).toUpperCase();
+      // 添加4個隨機字符
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let random = '';
+      for (let i = 0; i < 4; i++) {
+        random += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return `${base}-${random}`;
     };
-
-    setReferralCode(generateReferralCode());
-  }, []);
-
+  
+    setReferralCode(generateReferralCode(walletAddress || ''));
+  }, [location.state]);
   const handleCopyReferralCode = () => {
     navigator.clipboard.writeText(referralCode).then(() => {
       alert('Referral code copied to clipboard!');
