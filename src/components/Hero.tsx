@@ -7,7 +7,7 @@ const Hero: React.FC = () => {
 
   return (
     <motion.main 
-      className="mt-20 flex-grow flex flex-col justify-center items-center px-4"
+      className="mt-20 flex-grow flex flex-col justify-center items-center px-4 relative"
       animate={{
         backgroundColor: isCircleHovered ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0)',
       }}
@@ -26,6 +26,24 @@ const Hero: React.FC = () => {
         <h2 className="text-3xl font-bold text-brand-purple text-center leading-tight">
           FOR MONEY
         </h2>
+      </div>
+      
+      {/* 添加底部交錯圖片 */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-full h-full bg-repeat-x" style={{
+          backgroundImage: `url('/leftFlowers.webp')`,
+          backgroundSize: 'auto 100%',
+          backgroundPosition: 'bottom left',
+          transform: 'translateX(0%)'
+        }}></div>
+        <div className="absolute bottom-0 right-0 w-full h-full bg-repeat-x" style={{
+          backgroundImage: `url('/rightFLowers1.webp')`,
+          backgroundSize: 'auto 100%',
+          backgroundPosition: 'bottom right',
+          transform: 'translateX(5%)'
+        }}>
+
+        </div>
       </div>
     </motion.main>
   );

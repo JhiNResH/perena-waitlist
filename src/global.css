@@ -1705,3 +1705,11 @@
   background-color: rgba(60, 42, 77, 0.1) !important;
 }
 
+@keyframes slideBackground {
+  from {
+    background-position: 0 100%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
