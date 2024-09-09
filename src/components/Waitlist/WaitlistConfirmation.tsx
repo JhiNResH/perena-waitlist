@@ -90,7 +90,6 @@ const WaitlistConfirmation: React.FC = () => {
               >
                 Join the Alpha Chat
               </div>
-
             </div>
           </div>
           <img 
