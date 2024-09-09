@@ -8,6 +8,10 @@ const WaitlistConfirmation: React.FC = () => {
     window.open('https://t.me/perenafi', '_blank');
   };
 
+  // const handleSecuredYourDrip = () => {
+  //   window.open('https://drip.haus/perena', '_blank');
+  // };
+
   // const [referralCode, setReferralCode] = useState<string>('');
 
   // const fetchReferralCode = async (address: string) => {
@@ -61,6 +65,19 @@ const WaitlistConfirmation: React.FC = () => {
               <div className="bg-[#d2bb94] text-[#3c2a4d] px-4 py-2 rounded-md text-2xl font-bold mb-4">
                 {referralCode}
               </div> */}
+              {/* <div 
+                onClick={handleSecuredYourDrip}
+                className="mt-4 px-6 py-2 bg-[#d2bb94] text-[#3c2a4d] rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
+                style={{ 
+                  fontFamily: '"Sebastien Slab Round", serif',
+                  boxShadow: '1px 1px 0 #3c2a4d',
+                  fontWeight: 400,
+                  letterSpacing: '0.03em'
+                }}
+              >
+                Secure your drip
+              </div> */}
+
               <div 
                 onClick={handleJoinAlphaChat}
                 className="mt-4 px-6 py-2 bg-[#d2bb94] text-[#3c2a4d] rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-lg uppercase tracking-wide cursor-pointer"
@@ -73,6 +90,7 @@ const WaitlistConfirmation: React.FC = () => {
               >
                 Join the Alpha Chat
               </div>
+
             </div>
           </div>
           <img 

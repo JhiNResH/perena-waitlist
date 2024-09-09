@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import FlipCircle from './FlipCircle';
-import Counter from './Waitlist/Counter';
 
 const Hero: React.FC = () => {
   const [isCircleHovered, setIsCircleHovered] = useState(false);
@@ -27,7 +26,6 @@ const Hero: React.FC = () => {
         <h2 className="text-3xl font-bold text-brand-purple text-center leading-tight">
           FOR MONEY
         </h2>
-        <Counter /> 
       </div>
     </motion.main>
   );

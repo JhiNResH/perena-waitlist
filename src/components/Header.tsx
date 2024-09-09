@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         }}
       >
         <span>
-          Connect Wallet
+          Perena Updates
         </span>
       </div>
     </header>
