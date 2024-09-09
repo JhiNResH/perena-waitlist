@@ -146,7 +146,6 @@ const Registration: React.FC = () => {
             </div>
           </motion.div>
         </motion.div>
-        
       </main>
       <Footer />
     </div>
