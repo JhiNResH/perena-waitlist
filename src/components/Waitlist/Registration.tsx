@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Wallet from '../Wallet/ConnectWallet';
-
-declare global {
-  interface Window {
-    twttr: {
-      widgets: {
-        load: () => void;
-      };
-    };
-  }
-}
+import { useWallet } from '@solana/wallet-adapter-react';
 
 const Registration: React.FC = () => {
   const controls = useAnimation();
   const navigate = useNavigate();
+  const { publicKey } = useWallet();
   const [step, setStep] = useState(1);
   const [followCompleted, setFollowCompleted] = useState(false);
   const [retweetCompleted, setRetweetCompleted] = useState(false);
   const [stepOneCompleted, setStepOneCompleted] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
-  
+
   useEffect(() => {
     controls.start({
       scale: [0, 1.1, 1],
@@ -70,11 +62,13 @@ const Registration: React.FC = () => {
     setRetweetCompleted(true);
   };
 
-  const handleJoinWaitlist = () => {
-    setWalletConnected(true);
-    console.log('Joined waitlist');
-    // Add any additional logic for joining the waitlist here
-  };
+  const handleJoinWaitlist = useCallback(() => {
+    if (publicKey) {
+      setWalletConnected(true);
+    } else {
+      console.error('Wallet not connected');
+    }
+  }, [publicKey]);
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-cream">
