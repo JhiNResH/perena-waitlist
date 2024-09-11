@@ -19,7 +19,7 @@ const WaitlistConfirmation: React.FC = () => {
   useEffect(() => {
     if (publicKey) {
       const referralCode = generateReferralCode(publicKey);
-      const baseUrl = "https://perena-waitlist.vercel.app//refer?code=";
+      const baseUrl = "https://perena-waitlist.vercel.app/refer?code=";
       setReferralLink(`${baseUrl}${referralCode}`);
     }
   }, [publicKey]);
