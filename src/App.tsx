@@ -3,8 +3,7 @@ import './global.css';
 import { Routes, Route } from 'react-router-dom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter,
-  SolflareWalletAdapter,
+import { 
   TorusWalletAdapter,
   LedgerWalletAdapter,
   MathWalletAdapter,
@@ -29,8 +28,6 @@ const App: React.FC = () => {
   // 初始化錢包適配器
   const wallets = useMemo(
     () => [
-      new PhantomWalletAdapter(),
-      new SolflareWalletAdapter(),
       new TorusWalletAdapter(),
       new LedgerWalletAdapter(),
       new MathWalletAdapter(),
