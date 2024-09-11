@@ -3,11 +3,14 @@ import Header from '../Header';
 import Footer from '../Footer';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
+import { ReferralService } from '../../service/ReferralService';
+
 
 const WaitlistConfirmation: React.FC = () => {
   const { publicKey } = useWallet();
   const [referralLink, setReferralLink] = useState('');
   const [copied, setCopied] = useState(false);
+  const [referrals, setReferrals] = useState<string[]>([]);
 
   const handleJoinAlphaChat = () => {
     window.open('https://t.me/perenafi', '_blank');
@@ -22,6 +25,11 @@ const WaitlistConfirmation: React.FC = () => {
       const referralCode = generateReferralCode(publicKey);
       const baseUrl = window.location.origin + "/refer?code=";
       setReferralLink(`${baseUrl}${referralCode}`);
+
+      // Fetch referrals
+      ReferralService.getReferrals(publicKey.toBase58())
+        .then(setReferrals)
+        .catch(console.error);
     }
   }, [publicKey]);
 
@@ -91,7 +99,21 @@ const WaitlistConfirmation: React.FC = () => {
                 }}
               >
                 Join the Alpha Chat
-              </div>
+                </div>
+              {referrals.length > 0 && (
+                <div className="mt-6 w-full">
+                  <h3 className="text-xl text-center mb-3 text-brand-purple font-sebastien">
+                    Your Referrals:
+                  </h3>
+                  <ul className="list-disc list-inside">
+                    {referrals.map((referral, index) => (
+                      <li key={index} className="text-sm text-brand-purple font-sebastien">
+                        {referral.slice(0, 4)}...{referral.slice(-4)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
           <img 
