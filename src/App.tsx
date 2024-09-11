@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import './global.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { 
@@ -36,13 +36,28 @@ const App: React.FC = () => {
     []
   );
 
-  const MainContent = () => (
-    <div className="flex flex-col min-h-screen bg-brand-cream text-brand-purple font-sans text-base leading-base">
-      <Header />
-      <Hero />
-      <Footer />
-    </div>
-  );
+  const MainContent: React.FC = () => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const referralCode = searchParams.get('code');
+
+    React.useEffect(() => {
+      if (referralCode) {
+        // 處理推薦碼邏輯，例如存儲到 localStorage 中
+        localStorage.setItem('referralCode', referralCode);
+        // 可以在這裡添加其他處理邏輯，如顯示歡迎消息等
+        console.log(`Referral code received: ${referralCode}`);
+      }
+    }, [referralCode]);
+
+    return (
+      <div className="flex flex-col min-h-screen bg-brand-cream text-brand-purple font-sans text-base leading-base">
+        <Header />
+        <Hero />
+        <Footer />
+      </div>
+    );
+  };
 
   return (
     <ConnectionProvider endpoint={endpoint}>
@@ -52,6 +67,7 @@ const App: React.FC = () => {
             <Route path="/" element={<MainContent />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/waitlist-confirmation" element={<WaitlistConfirmation />} />
+            <Route path="/refer" element={<MainContent />} />
           </Routes>
         </WalletModalProvider>
       </WalletProvider>
