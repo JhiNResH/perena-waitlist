@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
@@ -74,43 +74,39 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
     }
   }, [publicKey, handleJoinWaitlist, hasJoinedWaitlist]);
 
-  const content = useMemo(() => {
-    if (connected && publicKey) {
-      const base58 = publicKey.toBase58();
-      return (
-        <div className="flex items-center justify-center">
-          <span className="text-3xl font-bold" style={{ fontFamily: '"Sebastien Slab Round", serif' }}>
-            {base58.slice(0, 4)}...{base58.slice(-4)}
-          </span>
-        </div>
-      );
-    } else {
-      return (
-        <div className="flex flex-col items-center">
-          <span className="text-base font-light">Connect Wallet</span>
-        </div>
-      );
-    }
-  }, [connected, publicKey]);
-  
   const handleClick = () => {
     if (connected) {
       setMenuOpen(!menuOpen);
     } else {
-      setVisible(true);
+      setVisible(true);  // 這裡會打開錢包連接模態框
     }
   };
+
+  // 只在 step 為 2 時渲染按鈕
+  if (step !== 2) {
+    return null;
+  }
 
   return (
     <div className="wallet-adapter-dropdown">
       <div
-        className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${step !== 2 ? 'pointer-events-none opacity-50' : ''} ${className || ""}`}
+        className={`inline-block bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${className || ""}`}
         style={style}
         onClick={handleClick}
         role="button"
         tabIndex={0}
       >
-        {content}
+        {connected ? (
+          <div className="flex items-center justify-center">
+            <span className="text-3xl font-bold" style={{ fontFamily: '"Sebastien Slab Round", serif' }}>
+              {publicKey?.toBase58().slice(0, 4)}...{publicKey?.toBase58().slice(-4)}
+            </span>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center">
+            <span className="text-base font-light">Connect Wallet</span>
+          </div>
+        )}
       </div>
       {connected && (
         <ul

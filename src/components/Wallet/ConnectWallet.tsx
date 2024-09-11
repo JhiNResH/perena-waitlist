@@ -24,6 +24,10 @@ export const Wallet: FC<WalletProps> = ({ onJoinWaitlist, step }) => {
         []
     );
 
+    if (step !== 2) {
+        return null;
+    }
+
     return (
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
