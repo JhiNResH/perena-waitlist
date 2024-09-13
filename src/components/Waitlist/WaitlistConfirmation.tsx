@@ -5,11 +5,12 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
 import { ReferralService } from '../../service/ReferralService';
 
-
 const WaitlistConfirmation: React.FC = () => {
   const { publicKey } = useWallet();
   const [referralLink, setReferralLink] = useState('');
+  const [referralCode, setReferralCode] = useState('');
   const [copied, setCopied] = useState(false);
+  const [codeCopied, setCodeCopied] = useState(false);
   const [referrals, setReferrals] = useState<string[]>([]);
 
   const handleJoinAlphaChat = () => {
@@ -22,9 +23,10 @@ const WaitlistConfirmation: React.FC = () => {
 
   useEffect(() => {
     if (publicKey) {
-      const referralCode = generateReferralCode(publicKey);
+      const code = generateReferralCode(publicKey);
+      setReferralCode(code);
       const baseUrl = window.location.origin + "/refer?code=";
-      setReferralLink(`${baseUrl}${referralCode}`);
+      setReferralLink(`${baseUrl}${code}`);
 
       // Fetch referrals
       ReferralService.getReferrals(publicKey.toBase58())
@@ -33,10 +35,10 @@ const WaitlistConfirmation: React.FC = () => {
     }
   }, [publicKey]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(referralLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // 2秒後重置按鈕狀態
+  const handleCopy = (text: string, setCopiedState: React.Dispatch<React.SetStateAction<boolean>>) => {
+    navigator.clipboard.writeText(text);
+    setCopiedState(true);
+    setTimeout(() => setCopiedState(false), 2000); // 2秒後重置按鈕狀態
   };
 
   return (
@@ -56,9 +58,41 @@ const WaitlistConfirmation: React.FC = () => {
               <h2 className="text-3xl font-500 text-center mb-4 text-brand-purple uppercase">
                 Welcome aboard, gardener!
               </h2>
+              {referralCode && (
+                <>
+                  <p className="text-xl text-center mb-3 text-brand-purple font-['Sebastien_Slab_Round']">
+                    Your referral code is:
+                  </p>
+                  <div className="flex items-center mb-6 w-full">
+                    <div className="flex-grow bg-[#d2bb94] text-[#3c2a4d] px-4 py-3 rounded-sm border border-[#3c2a4d] shadow-sm text-sm relative overflow-hidden mr-3"
+                         style={{ 
+                           fontFamily: '"Sebastien Slab Round", serif',
+                           boxShadow: '1px 1px 0 #3c2a4d',
+                           fontWeight: 400,
+                           letterSpacing: '0.03em'
+                         }}>
+                      <span className="block truncate">{referralCode}</span>
+                    </div>
+                    <div 
+                      onClick={() => handleCopy(referralCode, setCodeCopied)}
+                      className={`bg-[#d2bb94] text-[#3c2a4d] px-4 py-3 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm uppercase tracking-wide cursor-pointer flex-shrink-0 ${
+                        codeCopied ? 'bg-opacity-70' : ''
+                      }`}
+                      style={{ 
+                        fontFamily: '"Sebastien Slab Round", serif',
+                        boxShadow: '1px 1px 0 #3c2a4d',
+                        fontWeight: 400,
+                        letterSpacing: '0.03em'
+                      }}
+                    >
+                      {codeCopied ? 'Copied!' : 'Copy'}
+                    </div>
+                  </div>
+                </>
+              )}
               {referralLink && (
                 <>
-                  <p className="text-xl text-center mb-3 text-brand-purple font-sebastien">
+                  <p className="text-xl text-center mb-3 text-brand-purple font-['Sebastien_Slab_Round']">
                     Your referral link is:
                   </p>
                   <div className="flex items-center mb-6 w-full">
@@ -72,7 +106,7 @@ const WaitlistConfirmation: React.FC = () => {
                       <span className="block truncate">{referralLink}</span>
                     </div>
                     <div 
-                      onClick={handleCopy}
+                      onClick={() => handleCopy(referralLink, setCopied)}
                       className={`bg-[#d2bb94] text-[#3c2a4d] px-4 py-3 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm uppercase tracking-wide cursor-pointer flex-shrink-0 ${
                         copied ? 'bg-opacity-70' : ''
                       }`}
@@ -99,7 +133,7 @@ const WaitlistConfirmation: React.FC = () => {
                 }}
               >
                 Join the Alpha Chat
-                </div>
+              </div>
               {referrals.length > 0 && (
                 <div className="mt-6 w-full">
                   <h3 className="text-xl text-center mb-3 text-brand-purple font-sebastien">
