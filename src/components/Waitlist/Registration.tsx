@@ -109,7 +109,7 @@ const Registration: React.FC = () => {
               </h2>
               <div className="flex items-center justify-between">
                 <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                  Click Post to share the Promo Announcement:
+                  Click Repost to share the Promo Announcement:
                 </span>
                 <div 
                   onClick={handlePost}
