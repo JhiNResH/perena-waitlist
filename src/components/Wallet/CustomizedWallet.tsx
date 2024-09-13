@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
@@ -8,10 +8,11 @@ interface ConnectButtonProps {
   style?: React.CSSProperties;
   onJoinWaitlist: () => void;
   step: number;
+  canConnect: boolean;
 }
 
 const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
-  const { onJoinWaitlist, step, className, style } = props;
+  const { onJoinWaitlist, step, canConnect, className, style } = props;
 
   const { setVisible } = useWalletModal();
   const { publicKey, connected, disconnect, signMessage } = useWallet();
@@ -20,22 +21,6 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLUListElement>(null);
-
-  useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      const node = ref.current;
-      if (!node || node.contains(event.target as Node)) return;
-      setMenuOpen(false);
-    };
-
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
-
-    return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
-    };
-  }, []);
 
   const handleJoinWaitlist = useCallback(async () => {
     if (publicKey && signMessage && !hasJoinedWaitlist) {
@@ -68,22 +53,16 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
     }
   }, [publicKey, signMessage, onJoinWaitlist, hasJoinedWaitlist]);
 
-  useEffect(() => {
-    if (publicKey && !hasJoinedWaitlist) {
-      handleJoinWaitlist();
-    }
-  }, [publicKey, handleJoinWaitlist, hasJoinedWaitlist]);
-
   const handleClick = () => {
     if (connected) {
-      setMenuOpen(!menuOpen);
+      handleJoinWaitlist();
     } else {
       setVisible(true);  // 這裡會打開錢包連接模態框
     }
   };
 
-  // 只在 step 為 2 時渲染按鈕
-  if (step !== 2) {
+  // 只在 step 為 3 且 canConnect 為 true 時渲染按鈕
+  if (step !== 3 || !canConnect) {
     return null;
   }
 

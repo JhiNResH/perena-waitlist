@@ -13,10 +13,8 @@ const Registration: React.FC = () => {
   const [step, setStep] = useState(1);
   const [followCompleted, setFollowCompleted] = useState(false);
   const [retweetCompleted, setRetweetCompleted] = useState(false);
-  const [stepOneCompleted, setStepOneCompleted] = useState(false);
-  const [walletConnected, setWalletConnected] = useState(false);
   const [canConnectWallet, setCanConnectWallet] = useState(false);
-
+  
   useEffect(() => {
     controls.start({
       scale: [0, 1.1, 1],
@@ -39,18 +37,14 @@ const Registration: React.FC = () => {
   }, [controls]);
 
   useEffect(() => {
-    if (followCompleted && retweetCompleted) {
-      setStepOneCompleted(true);
+    if (followCompleted) {
       setStep(2);
+    }
+    if (retweetCompleted) {
+      setStep(3);
       setCanConnectWallet(true);
     }
   }, [followCompleted, retweetCompleted]);
-
-  useEffect(() => {
-    if (stepOneCompleted && walletConnected) {
-      navigate('/waitlist-confirmation');
-    }
-  }, [stepOneCompleted, walletConnected, navigate]);
 
   const handleFollow = () => {
     window.open('https://twitter.com/intent/follow?screen_name=Perena__', '_blank');
@@ -66,11 +60,13 @@ const Registration: React.FC = () => {
 
   const handleJoinWaitlist = useCallback(() => {
     if (publicKey) {
-      setWalletConnected(true);
+      console.log('Joining waitlist with public key:', publicKey.toBase58());
+      // TODO: 實現實際的等待列表加入邏輯
+      navigate('/waitlist-confirmation');
     } else {
       console.error('Wallet not connected');
     }
-  }, [publicKey]);
+  }, [publicKey, navigate]);
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-cream">
@@ -87,50 +83,47 @@ const Registration: React.FC = () => {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="space-y-5 bg-[#3c2a4d] p-7 rounded-lg shadow-lg"
           >
-            {stepOneCompleted ? (
-              <div className="bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] flex items-center">
-                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-base">✓</span>
+            <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step > 1 ? 'opacity-50' : ''}`}>
+              <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
+                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">1</span>
+                Follow Perena on X
+              </h2>
+              <div className="flex items-center justify-between">
                 <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                  Joined Perena and shared with friends
+                  Follow on X:
                 </span>
-              </div>
-            ) : (
-              <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 1 ? 'opacity-50' : ''}`}>
-                <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
-                  <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">1</span>
-                  Join Perena, and tell your friends
-                </h2>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                      Follow on X:
-                    </span>
-                    <div 
-                      onClick={handleFollow}
-                      className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                    >
-                      <span>@Perena__</span>
-                      {followCompleted && <span className="ml-2">✓</span>}
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                      Click Post to share the Promo Announcement:
-                    </span>
-                    <div 
-                      onClick={handlePost}
-                      className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-lg ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
-                    >
-                      <span>Repost</span>
-                      {retweetCompleted && <span className="ml-2">✓</span>}
-                    </div>
-                  </div>
+                <div 
+                  onClick={handleFollow}
+                  className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-normal ${followCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                >
+                  <span>@Perena__</span>
+                  {followCompleted && <span className="ml-2">✓</span>}
                 </div>
               </div>
-            )}
+            </div>
+
             <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 2 ? 'opacity-50' : ''}`}>
               <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
                 <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">2</span>
+                Share with your friends
+              </h2>
+              <div className="flex items-center justify-between">
+                <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
+                  Click Post to share the Promo Announcement:
+                </span>
+                <div 
+                  onClick={handlePost}
+                  className={`inline-flex items-center bg-[#d2bb94] text-[#3c2a4d] px-5 py-1.5 rounded-sm border border-[#3c2a4d] shadow-[1px_1px_0_#3c2a4d] hover:bg-[#c0a983] transition-all duration-300 ease-in-out text-base uppercase tracking-wider cursor-pointer active:transform active:translate-y-0.5 active:shadow-none font-['Sebastien_Slab_Round'] font-lg ${retweetCompleted ? 'opacity-50 pointer-events-none' : ''}`}
+                >
+                  <span>Repost</span>
+                  {retweetCompleted && <span className="ml-2">✓</span>}
+                </div>
+              </div>
+            </div>
+
+            <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 3 ? 'opacity-50' : ''}`}>
+              <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
+                <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">3</span>
                 Connect your wallet and sign the message
               </h2>
               <p className="text-[#3c2a4d] mb-4 text-lg font-['Sebastien_Slab_Round']">
@@ -144,8 +137,7 @@ const Registration: React.FC = () => {
         </motion.div>
       </main>
       <Footer />
-    </div>
-  );
+    </div>  );
 };
 
 export default Registration;
