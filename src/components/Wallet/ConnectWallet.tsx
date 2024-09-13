@@ -11,9 +11,10 @@ import ConnectButton from './CustomizedWallet';
 interface WalletProps {
     onJoinWaitlist: () => void;
     step: number;
+    canConnect: boolean;
 }
 
-export const Wallet: FC<WalletProps> = ({ onJoinWaitlist, step }) => {
+export const Wallet: FC<WalletProps> = ({ onJoinWaitlist, step, canConnect }) => {
     const network = WalletAdapterNetwork.Devnet;
     const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
@@ -24,7 +25,7 @@ export const Wallet: FC<WalletProps> = ({ onJoinWaitlist, step }) => {
         []
     );
 
-    if (step !== 2) {
+    if (step !== 2 || !canConnect) {
         return null;
     }
 

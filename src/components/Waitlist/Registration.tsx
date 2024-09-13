@@ -15,6 +15,7 @@ const Registration: React.FC = () => {
   const [retweetCompleted, setRetweetCompleted] = useState(false);
   const [stepOneCompleted, setStepOneCompleted] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
+  const [canConnectWallet, setCanConnectWallet] = useState(false);
 
   useEffect(() => {
     controls.start({
@@ -41,6 +42,7 @@ const Registration: React.FC = () => {
     if (followCompleted && retweetCompleted) {
       setStepOneCompleted(true);
       setStep(2);
+      setCanConnectWallet(true);
     }
   }, [followCompleted, retweetCompleted]);
 
@@ -113,7 +115,7 @@ const Registration: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
-                      Click Repost to share the Promo Announcement:
+                      Click Post to share the Promo Announcement:
                     </span>
                     <div 
                       onClick={handlePost}
@@ -135,7 +137,7 @@ const Registration: React.FC = () => {
                 Sign to confirm eligibility. Your connected wallet will qualify to claim double PERENA rewards.
               </p>
               <div className="flex justify-center">
-                <Wallet onJoinWaitlist={handleJoinWaitlist} step={step} />
+                <Wallet onJoinWaitlist={handleJoinWaitlist} step={step} canConnect={canConnectWallet} />
               </div>
             </div>
           </motion.div>
