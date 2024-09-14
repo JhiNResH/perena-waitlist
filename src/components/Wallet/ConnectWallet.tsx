@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
@@ -22,11 +22,12 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
   const handleJoinWaitlist = useCallback(async () => {
     if (publicKey && signMessage && !hasJoinedWaitlist) {
       try {
+        console.log('Attempting to join waitlist');
         const message = new TextEncoder().encode(`Join waitlist for ${publicKey.toBase58()}`);
         const signature = await signMessage(message);
         const signatureBase58 = bs58.encode(signature);
 
-        await fetch(
+        const response = await fetch(
           'https://script.google.com/macros/s/AKfycbzuNNizoAFYvG0q2kitX8ryaZt2qpmXpP9RGbv2Tar57mm7UOku-jis5mSXlO6xxQzH/exec',
           {
           method: 'POST',
@@ -40,25 +41,35 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
           }),
         });
         
+        console.log('Waitlist join response:', response);
         setHasJoinedWaitlist(true);
         onJoinWaitlist();
 
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error joining waitlist:', error);
         alert("There was an error submitting your request. Please try again.");
       }
     }
   }, [publicKey, signMessage, onJoinWaitlist, hasJoinedWaitlist]);
 
-  const handleClick = () => {
-    if (connected) {
-      handleJoinWaitlist();
+  const handleClick = useCallback(() => {
+    console.log('Button clicked, connected:', connected);
+    if (!connected) {
+      console.log('Opening wallet modal');
+      setVisible(true);
     } else {
-      setVisible(true);  // 這裡會打開錢包連接模態框
+      console.log('Wallet already connected, joining waitlist');
+      handleJoinWaitlist();
     }
-  };
+  }, [connected, setVisible, handleJoinWaitlist]);
 
-  // 只在 step 為 3 且 canConnect 為 true 時渲染按鈕
+  useEffect(() => {
+    console.log('Wallet connection state changed:', connected);
+    if (connected && publicKey) {
+      console.log('Wallet connected:', publicKey.toBase58());
+    }
+  }, [connected, publicKey]);
+
   if (step !== 3 || !canConnect) {
     return null;
   }
