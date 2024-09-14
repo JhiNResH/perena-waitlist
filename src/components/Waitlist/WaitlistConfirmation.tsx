@@ -10,7 +10,7 @@ const WaitlistConfirmation: React.FC = () => {
   const [referralLink, setReferralLink] = useState('');
   const [referralCode, setReferralCode] = useState('');
   const [copied, setCopied] = useState(false);
-  const [codeCopied, setCodeCopied] = useState(false);
+  // const [codeCopied, setCodeCopied] = useState(false);
   const [referrals, setReferrals] = useState<string[]>([]);
 
   const handleJoinAlphaChat = () => {
@@ -60,11 +60,11 @@ const WaitlistConfirmation: React.FC = () => {
               </h2>
               {referralCode && (
                 <>
-                  <p className="text-xl text-center mb-3 text-brand-purple font-['Sebastien_Slab_Round']">
+                  {/* <p className="text-xl text-center mb-3 text-brand-purple font-['Sebastien_Slab_Round']">
                     Your referral code is:
-                  </p>
+                  </p> */}
                   <div className="flex items-center mb-6 w-full">
-                    <div className="flex-grow bg-[#d2bb94] text-[#3c2a4d] px-4 py-3 rounded-sm border border-[#3c2a4d] shadow-sm text-sm relative overflow-hidden mr-3"
+                    {/* <div className="flex-grow bg-[#d2bb94] text-[#3c2a4d] px-4 py-3 rounded-sm border border-[#3c2a4d] shadow-sm text-sm relative overflow-hidden mr-3"
                          style={{ 
                            fontFamily: '"Sebastien Slab Round", serif',
                            boxShadow: '1px 1px 0 #3c2a4d',
@@ -72,8 +72,8 @@ const WaitlistConfirmation: React.FC = () => {
                            letterSpacing: '0.03em'
                          }}>
                       <span className="block truncate">{referralCode}</span>
-                    </div>
-                    <div 
+                    </div> */}
+                    {/* <div 
                       onClick={() => handleCopy(referralCode, setCodeCopied)}
                       className={`bg-[#d2bb94] text-[#3c2a4d] px-4 py-3 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm uppercase tracking-wide cursor-pointer flex-shrink-0 ${
                         codeCopied ? 'bg-opacity-70' : ''
@@ -86,7 +86,7 @@ const WaitlistConfirmation: React.FC = () => {
                       }}
                     >
                       {codeCopied ? 'Copied!' : 'Copy'}
-                    </div>
+                    </div> */}
                   </div>
                 </>
               )}
