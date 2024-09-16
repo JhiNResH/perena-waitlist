@@ -14,7 +14,7 @@ const Header: React.FC = () => {
       </div>        
       <div 
         onClick={handleClick}
-        className="bg-[#d2bb94] text-[#3c2a4d] px-6 py-2 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-sm font-sebastien uppercase tracking-wide cursor-pointer active:transform active:translate-y-0.5 active:shadow-none relative overflow-hidden"
+        className="bg-[#d2bb94] text-[#3c2a4d] px-4 py-2 sm:px-6 sm:py-2.5 rounded-sm border border-[#3c2a4d] shadow-sm hover:bg-opacity-90 transition-colors text-xs sm:text-sm font-sebastien uppercase tracking-wide cursor-pointer active:transform active:translate-y-0.5 active:shadow-none relative overflow-hidden"
         style={{ 
           fontFamily: '"Sebastien Slab Round", serif',
           boxShadow: '1px 1px 0 #3c2a4d',
