@@ -105,7 +105,7 @@ const Registration: React.FC = () => {
             <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 2 ? 'opacity-50' : ''}`}>
               <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
                 <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">2</span>
-                Share with your friends
+                 Spread the message
               </h2>
               <div className="flex items-center justify-between">
                 <span className="text-lg text-[#3c2a4d] font-['Sebastien_Slab_Round'] font-normal">
@@ -124,10 +124,10 @@ const Registration: React.FC = () => {
             <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 3 ? 'opacity-50' : ''}`}>
               <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
                 <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">3</span>
-                Connect your wallet and sign the message
+                Join the waitlist to earn double rewards
               </h2>
               <p className="text-[#3c2a4d] mb-4 text-lg font-['Sebastien_Slab_Round']">
-                Sign to confirm eligibility. Your connected wallet will qualify to claim double PERENA rewards.
+                Sign to confirm eligibility. Your connected wallet will qualify for double PERENA rewards.
               </p>
               <div className="flex justify-center">
                 <Wallet onJoinWaitlist={handleJoinWaitlist} step={step} canConnect={canConnectWallet} />
