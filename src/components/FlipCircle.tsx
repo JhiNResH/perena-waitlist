@@ -44,7 +44,7 @@ const FlippableCircle: React.FC<FlipCircleProps> = ({className = '', onHoverChan
             })
         ]);
 
-        navigate('/Registration');
+        navigate('/registration');
     };
     
     const handleMouseEnter = () => {
