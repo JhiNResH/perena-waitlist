@@ -3,7 +3,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
-import Wallet from '../Wallet/ConnectWallet';
+import CustomizedWallet from '../Wallet/CustomizedWallet';
 import { useWallet } from '@solana/wallet-adapter-react';
 
 const Registration: React.FC = () => {
@@ -46,22 +46,22 @@ const Registration: React.FC = () => {
     }
   }, [followCompleted, retweetCompleted]);
 
-  const handleFollow = () => {
+  const handleFollow = useCallback(() => {
     window.open('https://twitter.com/intent/follow?screen_name=Perena__', '_blank');
     setFollowCompleted(true);
-  };
+  }, []);
 
-  const handlePost = () => {
+  const handlePost = useCallback(() => {
     const tweetId = '1825972230401974627';
     const intentUrl = `https://twitter.com/intent/retweet?tweet_id=${tweetId}`;
     window.open(intentUrl, 'Retweet', 'width=600,height=400,resizable=yes,scrollbars=yes');
     setRetweetCompleted(true);
-  };
+  }, []);
 
   const handleJoinWaitlist = useCallback(() => {
     if (publicKey) {
       console.log('Joining waitlist with public key:', publicKey.toBase58());
-      // TODO: 實現實際的等待列表加入邏輯
+      // TODO: Implement actual waitlist joining logic
       navigate('/waitlist-confirmation');
     } else {
       console.error('Wallet not connected');
@@ -130,14 +130,19 @@ const Registration: React.FC = () => {
                 Sign to confirm eligibility. Your connected wallet will qualify for double PERENA rewards.
               </p>
               <div className="flex justify-center">
-                <Wallet onJoinWaitlist={handleJoinWaitlist} step={step} canConnect={canConnectWallet} />
+                <CustomizedWallet 
+                  onJoinWaitlist={handleJoinWaitlist} 
+                  step={step} 
+                  canConnect={canConnectWallet} 
+                />
               </div>
             </div>
           </motion.div>
         </motion.div>
       </main>
       <Footer />
-    </div>  );
+    </div>
+  );
 };
 
 export default Registration;
