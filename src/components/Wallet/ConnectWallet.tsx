@@ -1,67 +1,26 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import bs58 from "bs58";
 
-interface ConnectButtonProps {
+interface ConnectWalletProps {
   className?: string;
   style?: React.CSSProperties;
-  onJoinWaitlist: () => void;
   step: number;
   canConnect: boolean;
 }
 
-const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
-  const { onJoinWaitlist, step, canConnect, className, style } = props;
+const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
+  const { step, canConnect, className, style } = props;
 
   const { setVisible } = useWalletModal();
-  const { publicKey, connected, signMessage } = useWallet();
-
-  const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
-
-  const handleJoinWaitlist = useCallback(async () => {
-    if (publicKey && signMessage && !hasJoinedWaitlist) {
-      try {
-        console.log('Attempting to join waitlist');
-        const message = new TextEncoder().encode(`Join waitlist for ${publicKey.toBase58()}`);
-        const signature = await signMessage(message);
-        const signatureBase58 = bs58.encode(signature);
-
-        const response = await fetch(
-          'https://script.google.com/macros/s/AKfycbzuNNizoAFYvG0q2kitX8ryaZt2qpmXpP9RGbv2Tar57mm7UOku-jis5mSXlO6xxQzH/exec',
-          {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            publicKey: publicKey.toBase58(),
-            signature: signatureBase58,
-          }),
-        });
-        
-        console.log('Waitlist join response:', response);
-        setHasJoinedWaitlist(true);
-        onJoinWaitlist();
-
-      } catch (error) {
-        console.error('Error joining waitlist:', error);
-        alert("There was an error submitting your request. Please try again.");
-      }
-    }
-  }, [publicKey, signMessage, onJoinWaitlist, hasJoinedWaitlist]);
+  const { publicKey, connected } = useWallet();
 
   const handleClick = useCallback(() => {
-    console.log('Button clicked, connected:', connected);
     if (!connected) {
       console.log('Opening wallet modal');
       setVisible(true);
-    } else {
-      console.log('Wallet already connected, joining waitlist');
-      handleJoinWaitlist();
     }
-  }, [connected, setVisible, handleJoinWaitlist]);
+  }, [connected, setVisible]);
 
   useEffect(() => {
     console.log('Wallet connection state changed:', connected);
@@ -81,7 +40,7 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
       onClick={handleClick}
     >
       {connected ? (
-        <span className="text-base font-light">Join Waitlist</span>
+        <span className="text-base font-light">Connected</span>
       ) : (
         <span className="text-base font-light">Connect Wallet</span>
       )}
@@ -89,4 +48,4 @@ const ConnectButton: React.FC<ConnectButtonProps> = (props) => {
   );
 };
 
-export default ConnectButton;
+export default ConnectWallet;

@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import CustomizedWallet from '../Wallet/CustomizedWallet';
-import { useWallet } from '@solana/wallet-adapter-react';
 
 const Registration: React.FC = () => {
   const controls = useAnimation();
-  const navigate = useNavigate();
-  const { publicKey } = useWallet();
   const [step, setStep] = useState(1);
   const [followCompleted, setFollowCompleted] = useState(false);
   const [retweetCompleted, setRetweetCompleted] = useState(false);
@@ -57,16 +53,6 @@ const Registration: React.FC = () => {
     window.open(intentUrl, 'Retweet', 'width=600,height=400,resizable=yes,scrollbars=yes');
     setRetweetCompleted(true);
   }, []);
-
-  const handleJoinWaitlist = useCallback(() => {
-    if (publicKey) {
-      console.log('Joining waitlist with public key:', publicKey.toBase58());
-      // TODO: Implement actual waitlist joining logic
-      navigate('/waitlist-confirmation');
-    } else {
-      console.error('Wallet not connected');
-    }
-  }, [publicKey, navigate]);
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-cream">
@@ -124,14 +110,13 @@ const Registration: React.FC = () => {
             <div className={`bg-[#d2bb94] p-5 rounded-sm border border-[#3c2a4d] ${step !== 3 ? 'opacity-50' : ''}`}>
               <h2 className="text-xl mb-4 text-[#3c2a4d] flex items-center font-['Sebastien_Slab_Round'] font-normal tracking-wider">
                 <span className="bg-[#3c2a4d] text-[#d2bb94] rounded-full w-7 h-7 flex items-center justify-center mr-2 text-lg">3</span>
-                Join the waitlist to earn double rewards
+                Connect your wallet
               </h2>
               <p className="text-[#3c2a4d] mb-4 text-lg font-['Sebastien_Slab_Round']">
-                Sign to confirm eligibility. Your connected wallet will qualify for double PERENA rewards.
+                Connect your wallet to complete the registration process.
               </p>
               <div className="flex justify-center">
                 <CustomizedWallet 
-                  onJoinWaitlist={handleJoinWaitlist} 
                   step={step} 
                   canConnect={canConnectWallet} 
                 />

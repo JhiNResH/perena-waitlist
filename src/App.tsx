@@ -11,17 +11,13 @@ import "@solana/wallet-adapter-react-ui/styles.css";
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
-import WaitlistConfirmation from './components/Waitlist/WaitlistConfirmation';
 import Registration from '../src/components/Waitlist/Registration';
 
-// 默認使用 'devnet'，您可以根據需要更改
 const network = WalletAdapterNetwork.Devnet;
 
 const App: React.FC = () => {
-  // 可以根據需要更改 endpoint
   const endpoint = useMemo(() => clusterApiUrl(network), []);
 
-  // 初始化錢包適配器
   const wallets = useMemo(
     () => [
       new PhantomWalletAdapter(),
@@ -53,12 +49,11 @@ const App: React.FC = () => {
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider wallets={wallets} autoConnect={false}>
         <WalletModalProvider>
           <Routes>
             <Route path="/" element={<MainContent />} />
             <Route path="/registration" element={<Registration />} />
-            <Route path="/waitlist-confirmation" element={<WaitlistConfirmation />} />
             <Route path="/refer" element={<MainContent />} />
           </Routes>
         </WalletModalProvider>
